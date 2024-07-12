@@ -23,6 +23,7 @@ if($linhas > 0 ){
     $nivel_usuario = $res[0]["nivel"];
     $foto_usuario = $res[0]["foto"];
     $telefone_usuario = $res[0]["telefone"];
+    $endereco_usuario = $res[0]["endereco"];
 }
 
 
@@ -30,12 +31,14 @@ if($linhas > 0 ){
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Nome Sistema</title>
+	<title>Sistema ISOS</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="shortcut icon" href="" type="image/x-icon">
+	<link rel="shortcut icon" href="../img/icone.png" type="image/x-icon">
 
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!-- Bootstrap Core CSS -->
 	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
@@ -114,6 +117,9 @@ if($linhas > 0 ){
 
 	</script>
 	<!-- //pie-chart --><!-- index page sales reviews visitors pie chart -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-2.0.8/datatables.min.css">
+ 
+ <script src="https://cdn.datatables.net/v/dt/dt-2.0.8/datatables.min.js"></script>
 
 	
 </head> 
@@ -130,7 +136,7 @@ if($linhas > 0 ){
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<h1><a class="navbar-brand" href="index.php"><span class="fa fa-cutlery"></span> Isos <span class="dashboard_text">Isos Odontologia</span></a></h1>
+						<h1><a class="navbar-brand" href="index.php"><i class="fa-solid fa-tooth"></i> Isos <span class="dashboard_text">Isos Odontologia</span></a></h1>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="sidebar-menu">
@@ -381,18 +387,20 @@ if($linhas > 0 ){
 
 
 					<div class="row">
-											
+						<div class="col-md-12">							
+                                    <label>Endereco</label>
+                                    <input type="text" class="form-control" id="endereco_perfil" name="endereco_senha" placeholder="Endereco" value="<?php echo $endereco_usuario ?>" >
 						</div>
 					</div>
 
 
 					<div class="row">
-						<div class="col-md-6">							
+						<div class="col-md-8">							
 								<label>Foto</label>
 								<input type="file" class="form-control" id="foto_perfil" name="foto" value="<?php echo $foto_usuario ?>" onchange="carregarImgPerfil()">							
 						</div>
 
-						<div class="col-md-6">								
+						<div class="col-md-4">								
 							<img src="images/perfil/<?php echo $foto_usuario ?>"  width="80px" id="target-usu">								
 							
 						</div>
