@@ -17,4 +17,7 @@ try {
 }
 
 
+$nome_sistema = 'Paulo Barbosa';
+$email_sistema = 'paulovcb1@gmail.com';
+
 

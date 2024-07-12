@@ -4,10 +4,11 @@ require_once ("conexao.php");
 
 $email =  $_POST['email'];  
 $senha = $_POST['senha'];
+$senha_crip = md5($senha); 
 
-$query = $pdo ->prepare("SELECT * FROM usuarios where email = :email and senha = :senha ");
+$query = $pdo ->prepare("SELECT * FROM usuarios where email = :email and senha_crip = :senha ");
 $query -> bindValue(":email", "$email");
-$query -> bindValue(":senha", "$senha");
+$query -> bindValue(":senha", "$senha_crip");
 $query -> execute();
 
 $res = $query->fetchall(PDO::FETCH_ASSOC);
