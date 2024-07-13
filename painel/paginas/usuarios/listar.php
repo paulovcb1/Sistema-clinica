@@ -2,8 +2,8 @@
 
 $tabela = 'usuarios';
 require_once("../../../conexao.php");
-
-$query = $pdo ->query("SELECT * FROM usuarios order by id desc");
+$senha = '123';
+$query = $pdo ->query("SELECT * FROM $tabela order by id desc");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
 $linhas = @count ($res);
 if ($linhas > 0) {
@@ -16,6 +16,7 @@ echo <<<HTML
 	<th class="esc">Telefone</th>	
 	<th class="esc">Email</th>	
 	<th class="esc">Nível</th>	
+	<th class="esc">Foto</th>	
 	<th>Ações</th>
 	</tr> 
 	</thead> 
@@ -57,7 +58,8 @@ echo <<<HTML
         <td class="esc">{$telefone}</td>
         <td class="esc">{$email}</td>
         <td class="esc">{$nivel}</td>
-        <td style="justify-items: center;">
+        <td class="esc"><img src="images/perfil/{$foto}" width="20px" alt="Foto"></td>
+        <td>
         <big>
             <a href="#" onclick="editar('{$id}','{$nome}','{$email}','{$telefone}','{$endereco}','{$nivel}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
         </big>   
@@ -74,7 +76,7 @@ echo <<<HTML
                 </ul>
             </li>
             <big>
-                <a href="#" onclick="mostrar('{$nome}','{$email}','{$telefone}','{$endereco}','{$ativo}','{$data_formatada}', '{$senha}', '{$nivel}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
+                <a href="#" onclick="mostrar('{$nome}','{$email}','{$telefone}','{$endereco}','{$ativo}','{$data_formatada}', '{$senha}', '{$nivel}', '{$foto}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
             </big>
 
 
@@ -95,6 +97,11 @@ echo <<<HTML
             </div>
         </small>
     </table>
+    
+HTML;
+
+?>
+
     <script type="text/javascript">
         let table = new DataTable('#tabela', {
             "language" : {
@@ -102,7 +109,49 @@ echo <<<HTML
                 }, "ordering": false, "stateSave": true
         });
     </script>
-HTML;
+
+    <script>
+        function editar (id, nome, email, telefone, endereco, nivel){
+            $('#mensagem').text('');
+            $('#titulo_inserir').text('Editar Registro');
+
+            $('#id').val(id);
+            $('#nome').val(nome);
+            $('#email').val(email);
+            $('#telefone').val(telefone);
+            $('#endereco').val(endereco);
+            $('#nivel').val(nivel).change();
+            
+
+            $('#modalForm').modal('show');
+        }
+        function mostrar (nome, email, telefone, endereco, ativo, data, senha, nivel, foto){
+            $('#titulo_dados').text(nome);
+            $('#email_dados').text(email);
+            $('#telefone_dados').text(telefone);
+            $('#endereco_dados').text(endereco);
+            $('#ativo_dados').text(ativo);
+            $('#data_dados').text(data);
+            $('#senha_dados').text(senha);
+            $('#nivel_dados').text(nivel);
+            $('#foto_dados').attr("src", "images/perfil/" + foto);
+
+            
+
+            $('#modalDados').modal('show');
+
+
+        }
+
+        function limparCampos(){
+            $('#id').val('');
+            $('#nome').val('');
+            $('#email').val('');
+            $('#telefone').val('');
+            $('#endereco').val('');
+        }
+        
+    </script>
 
 
 

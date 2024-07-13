@@ -23,9 +23,6 @@ function inserir(){
     limparCampos();
 }
 
-
-
-
 $("#form").submit(function () {
 
     event.preventDefault();
@@ -61,16 +58,12 @@ $("#form").submit(function () {
 
 });
 
-
-
 function excluir(id){
     $('#mensagem-excluir').text('Excluindo...')
-    var id_empresa = localStorage.id_empresa;
-	var id_usuario = localStorage.id_usu;
     $.ajax({
         url: 'paginas/' + pag + "/excluir.php",
         method: 'POST',
-        data: {id, id_usuario, id_empresa},
+        data: {id},
         dataType: "html",
 
         success:function(mensagem){
@@ -84,56 +77,16 @@ function excluir(id){
     });
 }
 
-
-
 function ativar(id, acao){
-	var id_usuario = localStorage.id_usu;
-    var id_empresa = localStorage.id_empresa;
     $.ajax({
         url: 'paginas/' + pag + "/mudar-status.php",
         method: 'POST',
-        data: {id, id_usuario, acao, id_empresa},
+        data: {id, acao},
         dataType: "html",
 
         success:function(mensagem){
             if (mensagem.trim() == "Alterado com Sucesso") {
                 listar();
-            } else {
-                $('#mensagem-excluir').addClass('text-danger')
-                $('#mensagem-excluir').text(mensagem)
-            }
-        }
-    });
-}
-
-
-
-
-
-function baixar(id, pg, id_listar){    
-    var id_usuario = localStorage.id_usu;
-    var id_empresa = localStorage.id_empresa;
-
-    if(pg != "" && pg != "undefined" && pg != undefined){        
-        pag = pg;        
-    }
-
-    $.ajax({
-        url: 'paginas/' + pag + "/baixar.php",
-        method: 'POST',
-        data: {id, id_usuario, id_empresa},
-        dataType: "html",
-
-        success:function(mensagem){
-            if (mensagem.trim() == "Baixado com Sucesso") {
-                if(id_listar == "" || id_listar == "undefined" || id_listar == undefined){
-                    listar();
-                }else{
-                    listarContas(id_listar);
-                    alert('Pagamento Confirmado!')
-                }
-                
-                
             } else {
                 $('#mensagem-excluir').addClass('text-danger')
                 $('#mensagem-excluir').text(mensagem)
