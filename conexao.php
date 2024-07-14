@@ -22,3 +22,23 @@ $email_sistema = 'paulovcb1@gmail.com';
 $telefone_sistema = '(61) 999845-0867';
 
 
+$query = $pdo ->query("SELECT * FROM config");
+$res = $query->fetchall(PDO::FETCH_ASSOC);
+$linhas = @count ($res);
+
+if ($linhas == 0){
+    $query = $pdo ->query("INSERT INTO config SET nome = '$nome_sistema', email = '$email_sistema', telefone = '$telefone_sistema', logo = 'foto.png', logo_relatorio = 'foto.jpg', icone = 'icone.png'  ");
+    //VERIFICAR NOME DAS FOTOS DO BANCO DE DADOS COM AS DO ARQUIVOS
+} else {
+    $nome_sistema = $res[0] ['nome'];
+    $email_sistema = $res[0] ['email'];
+    $telefone_sistema = $res[0] ['telefone'];
+    $endereco_sistema = $res[0] ['endereco'];
+    $instagram_sistema = $res[0] ['instagram'];
+    $logo_sistema = $res[0] ['logo'];
+    $logo_relatorio = $res[0] ['logo_relatorio'];
+    $icone_sistema = $res[0] ['icone'];
+
+}
+
+

@@ -7,9 +7,26 @@ $pag = 'usuarios';
     Novo Usuario
 </a>
 
+<li class="dropdown head-dpdn2" style="display: inline-block;">
+		<a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none">
+		<i class="fa-solid fa-trash"></i>
+			DELETAR
+		</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div class="notification_desc2">
+                        <p>Tem certeza que deseja excluir? <a href="#" onclick="excluir('{$id}')"><span class="text-danger">Sim</span></a></p>
+                        </div>
+                    </li>										
+                </ul>
+            </li>
+
+
 <div class="bs-example widget-shadow" style="padding:15px" id="listar">
 
 </div>
+
+<input type="hidden" id="ids">
 
 <!-- Modal Dados -->
 <div class="modal fade" id="modalDados" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

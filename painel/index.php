@@ -31,7 +31,7 @@ if($linhas > 0 ){
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Sistema ISOS</title>
+	<title><?php echo $nome_sistema ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="shortcut icon" href="../img/icone.png" type="image/x-icon">
@@ -136,7 +136,7 @@ if($linhas > 0 ){
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<h1><a class="navbar-brand" href="index.php"><i class="fa-solid fa-tooth"></i> Isos <span class="dashboard_text">Isos Odontologia</span></a></h1>
+						<h1><a class="navbar-brand" href="index.php"><i class="fa-solid fa-tooth"></i> Sistema <span class="dashboard_text"><?php echo $nome_sistema ?></span></a></h1>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="sidebar-menu">
@@ -337,6 +337,112 @@ if($linhas > 0 ){
 </html>
 
 
+<div class="modal fade" id="modalConfig" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">Editar Configurações</h4>
+				<button id="btn-fechar-config" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form id="form-config">
+			<div class="modal-body">
+				
+
+					<div class="row">
+						<div class="col-md-4">							
+								<label>Nome do Projeto</label>
+								<input type="text" class="form-control" id="nome_sistema" name="nome_sistema" placeholder="Delivery Interativo" value="<?php echo @$nome_sistema ?>" required>							
+						</div>
+
+						<div class="col-md-4">							
+								<label>Email Sistema</label>
+								<input type="email" class="form-control" id="email_sistema" name="email_sistema" placeholder="Email do Sistema" value="<?php echo @$email_sistema ?>" >							
+						</div>
+
+
+						<div class="col-md-4">							
+								<label>Telefone Sistema</label>
+								<input type="text" class="form-control" id="telefone_sistema" name="telefone_sistema" placeholder="Telefone do Sistema" value="<?php echo @$telefone_sistema ?>" required>							
+						</div>
+
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-6">							
+								<label>Endereço <small>(Rua Número Bairro e Cidade)</small></label>
+								<input type="text" class="form-control" id="endereco_sistema" name="endereco_sistema" placeholder="Rua X..." value="<?php echo @$endereco_sistema ?>" >							
+						</div>
+
+						<div class="col-md-6">							
+								<label>Instagram</label>
+								<input type="text" class="form-control" id="instagram_sistema" name="instagram_sistema" placeholder="Link do Instagram" value="<?php echo @$instagram_sistema ?>">							
+						</div>
+					</div>
+					
+
+					<div class="row">
+						<div class="col-md-4">						
+								<div class="form-group"> 
+									<label>Logo (*PNG)</label> 
+									<input class="form-control" type="file" name="foto-logo" onChange="carregarImgLogo();" id="foto-logo">
+								</div>						
+							</div>
+							<div class="col-md-2">
+								<div id="divImg">
+									<img src="../img/<?php echo $logo_sistema ?>"  width="80px" id="target-logo">									
+								</div>
+							</div>
+
+
+							<div class="col-md-4">						
+								<div class="form-group"> 
+									<label>Ícone (*Png)</label> 
+									<input class="form-control" type="file" name="foto-icone" onChange="carregarImgIcone();" id="foto-icone">
+								</div>						
+							</div>
+							<div class="col-md-2">
+								<div id="divImg">
+									<img src="../img/<?php echo $icone_sistema ?>"  width="50px" id="target-icone">									
+								</div>
+							</div>
+
+						
+					</div>
+
+
+
+
+					<div class="row">
+							<div class="col-md-4">						
+								<div class="form-group"> 
+									<label>Logo Relatório (*Jpg)</label> 
+									<input class="form-control" type="file" name="foto-logo-rel" onChange="carregarImgLogoRel();" id="foto-logo-rel">
+								</div>						
+							</div>
+							<div class="col-md-2">
+								<div id="divImg">
+									<img src="../img/<?php echo $logo_relatorio ?>"  width="80px" id="target-logo-rel">									
+								</div>
+							</div>
+
+
+						
+					</div>					
+				
+
+				<br>
+				<small><div id="msg-config" align="center"></div></small>
+			</div>
+			<div class="modal-footer">       
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 
 
@@ -430,136 +536,7 @@ if($linhas > 0 ){
 
 
 
-<!-- Modal Config -->
-<div class="modal fade" id="modalConfig" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">Editar Configurações</h4>
-				<button id="btn-fechar-config" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form id="form-config">
-			<div class="modal-body">
-				
 
-					<div class="row">
-						<div class="col-md-3">							
-								<label>Nome do Projeto</label>
-								<input type="text" class="form-control" id="nome_sistema" name="nome_sistema" placeholder="Delivery Interativo" value="<?php echo @$nome_sistema ?>" required>							
-						</div>
-
-						<div class="col-md-3">							
-								<label>Email Sistema</label>
-								<input type="email" class="form-control" id="email_sistema" name="email_sistema" placeholder="Email do Sistema" value="<?php echo @$email_sistema ?>" >							
-						</div>
-
-
-						<div class="col-md-3">							
-								<label>Telefone Sistema</label>
-								<input type="text" class="form-control" id="telefone_sistema" name="telefone_sistema" placeholder="Telefone do Sistema" value="<?php echo @$telefone_sistema ?>" required>							
-						</div>
-
-						<div class="col-md-3">							
-								<label>Telefone Fixo</label>
-								<input type="text" class="form-control" id="telefone_fixo" name="telefone_fixo" placeholder="Telefone Fixo" value="<?php echo @$telefone_fixo ?>" >							
-						</div>
-					</div>
-
-
-					<div class="row">
-						<div class="col-md-6">							
-								<label>Endereço <small>(Rua Número Bairro e Cidade)</small></label>
-								<input type="text" class="form-control" id="endereco_sistema" name="endereco_sistema" placeholder="Rua X..." value="<?php echo @$endereco_sistema ?>" >							
-						</div>
-
-						<div class="col-md-6">							
-								<label>Instagram</label>
-								<input type="text" class="form-control" id="instagram_sistema" name="instagram_sistema" placeholder="Link do Instagram" value="<?php echo @$instagram_sistema ?>">							
-						</div>
-					</div>
-
-
-
-					<div class="row">
-						<div class="col-md-3">							
-								<label>Tipo Relatório</label>
-								<select class="form-control" name="tipo_rel">
-									<option value="PDF" <?php if(@$tipo_rel == 'PDF'){?> selected <?php } ?> >PDF</option>
-									<option value="HTML" <?php if(@$tipo_rel == 'HTML'){?> selected <?php } ?> >HTML</option>
-								</select>							
-						</div>
-
-						
-
-					</div>
-
-
-					
-
-					
-
-					<div class="row">
-						<div class="col-md-4">						
-								<div class="form-group"> 
-									<label>Logo (*PNG)</label> 
-									<input class="form-control" type="file" name="foto-logo" onChange="carregarImgLogo();" id="foto-logo">
-								</div>						
-							</div>
-							<div class="col-md-2">
-								<div id="divImg">
-									<img src="../../img/<?php echo $logo_sistema ?>"  width="80px" id="target-logo">									
-								</div>
-							</div>
-
-
-							<div class="col-md-4">						
-								<div class="form-group"> 
-									<label>Ícone (*Png)</label> 
-									<input class="form-control" type="file" name="foto-icone" onChange="carregarImgIcone();" id="foto-icone">
-								</div>						
-							</div>
-							<div class="col-md-2">
-								<div id="divImg">
-									<img src="../../img/<?php echo $favicon_sistema ?>"  width="50px" id="target-icone">									
-								</div>
-							</div>
-
-						
-					</div>
-
-
-
-
-					<div class="row">
-							<div class="col-md-4">						
-								<div class="form-group"> 
-									<label>Logo Relatório (*Jpg)</label> 
-									<input class="form-control" type="file" name="foto-logo-rel" onChange="carregarImgLogoRel();" id="foto-logo-rel">
-								</div>						
-							</div>
-							<div class="col-md-2">
-								<div id="divImg">
-									<img src="../../img/<?php echo @$logo_rel ?>"  width="80px" id="target-logo-rel">									
-								</div>
-							</div>
-
-
-						
-					</div>					
-				
-
-				<br>
-				<small><div id="msg-config" align="center"></div></small>
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Salvar</button>
-			</div>
-			</form>
-		</div>
-	</div>
-</div>
 
 
 
