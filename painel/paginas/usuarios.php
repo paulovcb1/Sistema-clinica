@@ -15,7 +15,7 @@ $pag = 'usuarios';
                 <ul class="dropdown-menu">
                     <li>
                         <div class="notification_desc2">
-                        <p>Tem certeza que deseja excluir? <a href="#" onclick="excluir('{$id}')"><span class="text-danger">Sim</span></a></p>
+                        <p>Tem certeza que deseja excluir? <a href="#" onclick="excluirSel()"><span class="text-danger">Sim</span></a></p>
                         </div>
                     </li>										
                 </ul>
