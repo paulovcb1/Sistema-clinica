@@ -47,8 +47,11 @@ for ($i = 0; $i < $linhas; $i++) {
         $acao = 'Sim';
         $classe_ativo = '#c4c4c4';
     }
+
+    $mostrar_adm = "";
     if($nivel == 'Administrador'){
         $senha = '*********';
+        $mostrar_adm = "ocultar";
 
     }
 
@@ -86,6 +89,10 @@ echo <<<HTML
                 <a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} text-success"></i></a>
             </big>
 
+            <big>
+                <a class="{$mostrar_adm}" href="#" onclick="permissoes('{$id}', '{$nome}')" title="Dar Permissões"><i class="fa-solid fa-lock text-primary"></i></a>
+            </big>
+
         </td>
     </tr>
 HTML;
@@ -108,13 +115,13 @@ HTML;
 
 ?>
 
-    <script type="text/javascript">
-        let table = new DataTable('#tabela', {
-            "language" : {
-                    "url" : '//cdn.datatables.net/plug-ins/1.13.2/i18n/pt-BR.json'
-                }, "ordering": false, "stateSave": true
+        <script type="text/javascript">
+                var table = new DataTable('#tabela', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/pt-PT.json',
+            },"ordering": false, "stateSave": true
         });
-    </script>
+            </script>
 
     <script>
         function editar (id, nome, email, telefone, endereco, nivel){
@@ -190,6 +197,18 @@ HTML;
             }
 
             limparCampos();
+        }
+
+        function permissoes (id, nome){
+            $('#id_permissoes').val(id);
+            $('#nome_permissoes').text(nome);
+   
+
+            
+
+            $('#modalPermissoes').modal('show');
+
+
         }
         
     </script>

@@ -84,6 +84,36 @@ $pag = 'usuarios';
 
 
 
+<!-- Modal Permissoes -->
+<div class="modal fade" id="modalPermissoes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel"><span id="nome_permissoes"></span>
+					<span style="position:absolute; right:35px">
+							<input class="form-check-input" type="checkbox" id="input-todos" onchange="marcarTodos()">
+							<label class="" >Marcar Todos</label>
+					</span>
+				</h4>
+
+				<button id="btn-fechar-permissoes" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row" id="listar-permissoes">
+
+
+				</div>
+				<br>
+				<input type="hidden" name="id" id="id_permissoes">
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
 
 
 <!-- Modal Perfil -->
@@ -153,6 +183,8 @@ $pag = 'usuarios';
 		</div>
 	</div>
 </div>
+
+
 
 
 

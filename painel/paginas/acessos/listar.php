@@ -1,6 +1,6 @@
 <?php
 
-$tabela = 'grupo_acessos';
+$tabela = 'acessos';
 require_once("../../../conexao.php");
 $query = $pdo ->query("SELECT * FROM $tabela order by id desc");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
@@ -9,24 +9,35 @@ if ($linhas > 0) {
 echo <<<HTML
 <small>
 	<table class="table table-hover" id="tabela">
-	<thead> 
-	<tr> 
-	<th>Nome</th> 
-	<th>Acessos</th>
-	<th>Ações</th>
-	</tr> 
-	</thead> 
+        <thead> 
+            <tr> 
+                <th>Nome</th> 
+                <th>Grupo</th>
+                <th>Chave</th>
+                <th>Ações</th>
+            </tr> 
+        </thead> 
 	<tbody>	
 HTML;
 
 for ($i = 0; $i < $linhas; $i++) {
     $id = $res[$i]['id'];
     $nome = $res[$i]['nome'];
+    $grupo = $res[$i]['grupo'];
+    $chave = $res[$i]['chave'];
 
-    $query2 = $pdo ->query("SELECT * FROM acessos where grupo = '$id'");
+    $query2 = $pdo ->query("SELECT * FROM grupo_acessos where id = '$grupo' ");
     $res2 = $query2->fetchall(PDO::FETCH_ASSOC);
-    $total_acessos = @count ($res2);
 
+    if (@count ($res2) > 0) {
+
+        $nome_grupo = $res2[0]['nome'];
+
+    
+    } else {
+        $nome_grupo = 'Sem Grupo';
+    }
+    
 
 
 echo <<<HTML
@@ -34,10 +45,11 @@ echo <<<HTML
         <td>
             <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
             {$nome}</td>
-        <td class="esc">{$total_acessos}</td>
+        <td class="esc">{$grupo}</td>
+        <td class="esc">{$chave}</td>
         <td>
         <big>
-            <a href="#" onclick="editar('{$id}','{$nome}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
+            <a href="#" onclick="editar('{$id}','{$nome}','{$chave}','{$grupo}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
         </big>   
 
             <li class="dropdown head-dpdn2" style="display: inline-block;">
@@ -75,8 +87,7 @@ HTML;
 
 ?>
 
-<!-- DATA TABLE CONFERIR SEMPRE ERROS NELA POIS E RECORRENTE -->
-<script type="text/javascript">
+    <script type="text/javascript">
         var table = new DataTable('#tabela', {
     language: {
         url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/pt-PT.json',
@@ -85,12 +96,14 @@ HTML;
     </script>
 
     <script>
-        function editar (id, nome){
+        function editar (id, nome, chave, grupo){
             $('#mensagem').text('');
             $('#titulo_inserir').text('Editar Registro');
 
             $('#id').val(id);
             $('#nome').val(nome);
+            $('#chave').val(chave);
+            $('#grupo').val(grupo).change();
 
             
 
@@ -101,9 +114,9 @@ HTML;
         function limparCampos(){
             $('#id').val('');
             $('#nome').val('');
-            $('#email').val('');
-            $('#telefone').val('');
-            $('#endereco').val('');
+            $('#chave').val('');
+            $('#grupo').val('0').change();
+
             $('#ids').val('');
             $('#btn-deletar').hide();
         }
