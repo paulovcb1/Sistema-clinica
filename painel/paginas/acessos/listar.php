@@ -12,8 +12,8 @@ echo <<<HTML
         <thead> 
             <tr> 
                 <th>Nome</th> 
-                <th>Grupo</th>
                 <th>Chave</th>
+                <th>Grupo</th>
                 <th>Ações</th>
             </tr> 
         </thead> 

@@ -101,13 +101,17 @@ $pag = 'usuarios';
 				</button>
 			</div>
 			<div class="modal-body">
-				<div class="row" id="listar-permissoes">
+				<div class="row" id="listar_permissoes">
 
 
 				</div>
 				<br>
 				<input type="hidden" name="id" id="id_permissoes">
+				<small>
+					<div id="mensagem_permissao" align="center" class="mt-3" >
 
+					</div>
+				</small>
 			</div>
 		</div>
 	</div>
