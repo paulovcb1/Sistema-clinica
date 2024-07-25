@@ -212,11 +212,11 @@ HTML;
 
         }
 
-        function listarPermissoes (p1, p2, p3, p4, p5, p6){
+        function listarPermissoes (id){
             $.ajax({
             url: 'paginas/' + pag + "/listar_permissoes.php",
             method: 'POST',
-            data: {p1, p2, p3, p4, p5, p6},
+            data: {id},
             dataType: "html",
 
             success:function(result){
@@ -226,6 +226,9 @@ HTML;
     });
 
         }
+
+
+        
         
     </script>
 

@@ -25,6 +25,7 @@ for ($i = 0; $i < $linhas; $i++) {
     $nome = $res[$i]['nome'];
     $grupo = $res[$i]['grupo'];
     $chave = $res[$i]['chave'];
+    $pagina = $res[$i]['pagina'];
 
     $query2 = $pdo ->query("SELECT * FROM grupo_acessos where id = '$grupo' ");
     $res2 = $query2->fetchall(PDO::FETCH_ASSOC);
@@ -49,7 +50,7 @@ echo <<<HTML
         <td class="esc">{$chave}</td>
         <td>
         <big>
-            <a href="#" onclick="editar('{$id}','{$nome}','{$chave}','{$grupo}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
+            <a href="#" onclick="editar('{$id}','{$nome}','{$chave}','{$grupo}','{$pagina}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
         </big>   
 
             <li class="dropdown head-dpdn2" style="display: inline-block;">
@@ -96,7 +97,7 @@ HTML;
     </script>
 
     <script>
-        function editar (id, nome, chave, grupo){
+        function editar (id, nome, chave, grupo, pagina){
             $('#mensagem').text('');
             $('#titulo_inserir').text('Editar Registro');
 
@@ -104,6 +105,7 @@ HTML;
             $('#nome').val(nome);
             $('#chave').val(chave);
             $('#grupo').val(grupo).change();
+            $('#pagina').val(pagina).change();
 
             
 

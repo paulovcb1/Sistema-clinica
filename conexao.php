@@ -27,7 +27,7 @@ $res = $query->fetchall(PDO::FETCH_ASSOC);
 $linhas = @count ($res);
 
 if ($linhas == 0){
-    $query = $pdo ->query("INSERT INTO config SET nome = '$nome_sistema', email = '$email_sistema', telefone = '$telefone_sistema', logo = 'foto.png', logo_relatorio = 'foto.jpg', icone = 'icone.png'  ");
+    $query = $pdo ->query("INSERT INTO config SET nome = '$nome_sistema', email = '$email_sistema', telefone = '$telefone_sistema', logo = 'foto.png', logo_relatorio = 'foto.jpg', icone = 'icone.png', ativo = 'Sim'  ");
     //VERIFICAR NOME DAS FOTOS DO BANCO DE DADOS COM AS DO ARQUIVOS
 } else {
     $nome_sistema = $res[0] ['nome'];
@@ -38,7 +38,13 @@ if ($linhas == 0){
     $logo_sistema = $res[0] ['logo'];
     $logo_relatorio = $res[0] ['logo_relatorio'];
     $icone_sistema = $res[0] ['icone'];
+    $ativo_sistema = $res[0] ['ativo'];
 
+
+    if($ativo_sistema != 'Sim' and $ativo_sistema != ''){
+        echo 'Sistema Desativado';
+        exit();
+    }
 }
 
 

@@ -48,7 +48,7 @@ Acessos
 								<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Menu" required>							
 						</div>
 
-						<div class="col-md-3">							
+						<div class="col-md-2">							
 								<label>Chave</label>
 								<input type="text" class="form-control" id="chave" name="chave" placeholder="Chave" required>							
 						</div>
@@ -71,7 +71,16 @@ Acessos
                                     </select>						
 						</div>
 
-						<div class="col-md-3" style="margin-top: 22px">							
+
+						<div class="col-md-2">
+						<label>Página</label>
+								<select name="pagina" id="pagina" class="form-control">
+								<option value="Sim">Sim</option>
+								<option value="Não">Não</option>
+                                </select>						
+						</div>
+
+						<div class="col-md-1" style="margin-top: 22px">							
 								<button type="submit" class="btn btn-primary" >Salvar</button>							
 						</div>
 

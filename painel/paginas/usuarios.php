@@ -198,3 +198,61 @@ $pag = 'usuarios';
     var pag = "<?=$pag?>"
 </script>
 <script src="js/ajax.js"></script>
+
+<script>
+	function adicionarPermissao (id, usuario){
+            $.ajax({
+            url: 'paginas/' + pag + "/add_permissao.php",
+            method: 'POST',
+            data: {id, usuario},
+            dataType: "html",
+
+            success:function(result){
+                listarPermissoes(usuario);
+        }
+    });
+
+        }
+
+		function marcarTodos(){
+		let checkbox = document.getElementById('input-todos');
+		var usuario = $('#id').val();
+		
+		if(checkbox.checked) {
+		    adicionarPermissoes(usuario);		    
+		} else {
+		    limparPermissoes(usuario);
+		}
+	}
+
+		function adicionarPermissoes (id_usuario){
+			var id_usuario = $("#id_permissoes").val();
+            $.ajax({
+            url: 'paginas/' + pag + "/add_permissoes.php",
+            method: 'POST',
+            data: {id_usuario},
+            dataType: "html",
+
+            success:function(result){
+                listarPermissoes(id_usuario);
+        }
+    });
+
+        }
+
+
+		function limparPermissoes (id_usuario) {
+				$.ajax({
+				url: 'paginas/' + pag + "/limpar_permissoes.php",
+				method: 'POST',
+				data: {id_usuario},
+				dataType: "html",
+
+				success:function(result){
+				listarPermissoes(id_usuario);
+			}
+		});
+
+	}
+		
+</script>
