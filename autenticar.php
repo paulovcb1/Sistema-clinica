@@ -1,10 +1,10 @@
 <?php
-session_start();
+@session_start();
 require_once ("conexao.php");
 
 $email =  $_POST['email'];  
 $senha = $_POST['senha'];
-$senha_crip = md5($senha); 
+$senha_crip = sha1($senha); 
 
 $query = $pdo ->prepare("SELECT * FROM usuarios where email = :email and senha_crip = :senha ");
 $query -> bindValue(":email", "$email");
@@ -12,7 +12,7 @@ $query -> bindValue(":senha", "$senha_crip");
 $query -> execute();
 
 $res = $query->fetchall(PDO::FETCH_ASSOC);
-$linhas = count ($res);
+$linhas = @count ($res);
 
 if ($linhas > 0) {
     if($res[0] ['ativo'] != 'Sim'){

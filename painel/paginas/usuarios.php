@@ -1,7 +1,7 @@
 <?php
 $pag = 'usuarios';
 ?>
-
+<div class="main-page margin-mobile">
 <a onclick="inserir()" class="btn btn-primary">
 <i class="fa-solid fa-plus"></i>
     Novo Usuario
@@ -25,6 +25,7 @@ $pag = 'usuarios';
 <div class="bs-example widget-shadow" style="padding:15px" id="listar">
 
 </div>
+</div>
 
 <input type="hidden" id="ids">
 
@@ -46,14 +47,11 @@ $pag = 'usuarios';
 					</div>
 
 
-					<div class="col-md-5" style="margin-bottom: 5px">
+					<div class="col-md-12" style="margin-bottom: 5px">
 						<span><b>Email: </b></span><span id="email_dados"></span>
 					</div>
 				
 
-					<div class="col-md-6" style="margin-bottom: 5px">
-						<span><b>Senha: </b></span><span id="senha_dados"></span>
-					</div>
 
 					<div class="col-md-6" style="margin-bottom: 5px">
 						<span><b>Nível: </b></span><span id="nivel_dados"></span>

@@ -9,8 +9,8 @@ $linhas = @count ($res);
 if ($linhas > 0) {
 echo <<<HTML
 <small>
-	<table class="table table-hover" id="tabela">
-	<thead> 
+    <table class="table table-hover" id="tabela">
+    <thead>
 	<tr> 
 	<th>Nome</th>	
 	<th class="esc">Telefone</th>	
@@ -34,7 +34,7 @@ for ($i = 0; $i < $linhas; $i++) {
     $ativo = $res[$i]['ativo'];
     $data = $res[$i]['data'];
 
-    $data_formatada = implode('/', array_reverse(explode('-', $data)));
+    $data_formatada = implode('/', array_reverse(@explode('-', $data)));
 
     if($ativo == 'Sim'){
         $icone = 'fa-check-square';
@@ -117,10 +117,10 @@ HTML;
 
         <script type="text/javascript">
                 var table = new DataTable('#tabela', {
-            language: {
-                url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/pt-PT.json',
-            },"ordering": false, "stateSave": true
-        });
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
+                }, "ordering": false, "stateSave": true
+            });
             </script>
 
     <script>
@@ -145,7 +145,6 @@ HTML;
             $('#endereco_dados').text(endereco);
             $('#ativo_dados').text(ativo);
             $('#data_dados').text(data);
-            $('#senha_dados').text(senha);
             $('#nivel_dados').text(nivel);
             $('#foto_dados').attr("src", "images/perfil/" + foto);
 

@@ -2,12 +2,12 @@ body{
 
 }
 
-.login{
+.logar{
     margin: auto;
     width: 360px;
     padding: 8% 0 0;
 }
-.form{
+.formulario{
     position: relative;
     z-index: 1;
     background-color: #c6f5ed;
@@ -20,7 +20,7 @@ body{
     border-radius: 10px; 
 }
 
-.form input{
+.formulario input{
     font-family: "Verdana", sans-serif;
     outline: 0;
     background-color: #f2f2f2;
@@ -33,7 +33,7 @@ body{
     border-radius: 10px;
 }
 
-.button{
+.botao{
     font-family: "Verdana", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -49,7 +49,7 @@ body{
     border-radius: 10px;
 }
 
-.button:hover, .button:active, .button:focus{
+.botao:hover, .botao:active, .botao:focus{
     background: #347cc9;
     transform: scale(1.05);
 }
@@ -57,3 +57,9 @@ img{
     width: 150px;
     height: 150px;
 }
+.recuperar a{
+    margin-top:25px;
+    font-size:13px;
+    text-align:center;
+    text-decoration: none;
+  }

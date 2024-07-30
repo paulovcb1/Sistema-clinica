@@ -88,13 +88,13 @@ HTML;
 
 ?>
 
-    <script type="text/javascript">
-        var table = new DataTable('#tabela', {
-    language: {
-        url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/pt-PT.json',
-    },"ordering": false, "stateSave": true
-});
-    </script>
+        <script type="text/javascript">
+                var table = new DataTable('#tabela', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
+                }, "ordering": false, "stateSave": true
+            });
+            </script>
 
     <script>
         function editar (id, nome, chave, grupo, pagina){

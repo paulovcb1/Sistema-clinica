@@ -44,9 +44,12 @@ if($linhas > 0 ){
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 	<!-- SCRIPT DATA TABLE -->
-	<link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.dataTables.css" />
+	<link rel="stylesheet" href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css" />
+	
   
-	<script src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script>
+	<script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
+	<script src="//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json"></script>
+	
 
 
 	<!-- FONT AWESOEME NOVO -->
@@ -165,7 +168,7 @@ if($linhas > 0 ){
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
-									<li class="<?php echo $usuarios ?>" ><a href="index.php?pagina=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
+									<li class="<?php echo $usuarios ?>" ><a href="usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
 									
 								</ul>
 							</li>
@@ -178,11 +181,11 @@ if($linhas > 0 ){
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
-									<li  class="<?php echo $grupo_acessos ?>"><a href="index.php?pagina=grupo_acessos"><i class="fa fa-angle-right"></i> Grupos</a></li>
+									<li  class="<?php echo $grupo_acessos ?>"><a href="grupo_acessos"><i class="fa fa-angle-right"></i> Grupos</a></li>
 									
 								</ul>	
 								<ul class="treeview-menu">
-									<li  class="<?php echo $acessos ?>"><a href="index.php?pagina=acessos"><i class="fa fa-angle-right"></i> Acessos</a></li>
+									<li  class="<?php echo $acessos ?>"><a href="acessos"><i class="fa fa-angle-right"></i> Acessos</a></li>
 									
 								</ul>
 							</li>

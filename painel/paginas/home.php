@@ -1,4 +1,21 @@
-<div class="main-page">
+<?php
+	if(@$home == 'ocultar'){
+		echo "<script> window.location='../index.php' </script>";
+		exit();
+	}
+
+?>
+
+
+
+<div class="main-page margin-mobile">
+	
+		<?php if($ativo_sistema == ''){ ?>
+	<div style="background: #ffc341; color:#3e3e3e; padding:10px; font-size:14px; margin-bottom:10px">
+	<div><i class="fa fa-info-circle"></i> <b>Aviso: </b> Prezado Cliente, não identificamos o pagamento de sua última mensalidade, entre em contato conosco o mais rápido possivel para regularizar o pagamento, caso contário seu acesso ao sistema será desativado.</div>
+	</div>
+	<?php } ?>
+
 	<div class="col_3">
 		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">

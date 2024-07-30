@@ -2,6 +2,7 @@
 $pag = 'acessos';
 ?>
 
+<div class="main-page margin-mobile">
 <a onclick="inserir()" class="btn btn-primary">
 <i class="fa-solid fa-plus"></i>
 Acessos
@@ -24,6 +25,7 @@ Acessos
 
 <div class="bs-example widget-shadow" style="padding:15px" id="listar">
 
+</div>
 </div>
 
 <input type="hidden" id="ids">
