@@ -1,50 +1,31 @@
 <?php
 
-$tabela = 'usuarios';
+$tabela = 'cargos';
 require_once("../../../conexao.php");
 
 $nome = $_POST['nome'];
-$email = $_POST['email'];
-$telefone = $_POST['telefone'];
-$nivel = $_POST['grupo'];
-$endereco = $_POST['endereco']; 
-$pagamento = $_POST['pagamento']; 
-$atendimento = $_POST['atendimento']; 
-$comissao = $_POST['comissao']; 
-$senha = '123';
-$senha_crip = sha1($senha);
 $id = $_POST['id']; 
-// validacao email
-$query = $pdo ->query("SELECT * FROM $tabela where email = '$email' ");
+
+
+// validacao nome
+$query = $pdo ->query("SELECT * FROM $tabela where nome = '$nome' ");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
 $id_reg = @$res[0]['id'];
 if (@count ($res) > 0 and $id != $id_reg) {
-    echo "Email: $email já foi Cadastrado";
-    exit();
-}
-//validacao telefone evita duplicidade de dados
-$query = $pdo ->query("SELECT * FROM $tabela where telefone = '$telefone' ");
-$res = $query->fetchall(PDO::FETCH_ASSOC);
-$id_reg = @$res[0]['id'];
-if (@count ($res) > 0 and $id != $id_reg) {
-    echo "Telefone: $telefone já foi Cadastrado";
+    echo "nome: $nome já foi Cadastrado";
     exit();
 }
 
+
+
 if($id == ""){
-    $query = $pdo ->prepare("INSERT INTO usuarios SET nome = :nome, email = :email, senha =  '$senha', senha_crip = '$senha_crip', nivel = '$nivel', ativo = 'Sim', foto = 'sem-foto.jpg', telefone = :telefone, data = curDate(), endereco = :endereco, pagamento = :pagamento, comissao = :comissao, atendimento = :atendimento");
+    $query = $pdo ->prepare("INSERT INTO $tabela SET nome = :nome");
 } else {
-    $query = $pdo ->prepare("UPDATE $tabela SET nome = :nome, email = :email, senha =  '$senha', nivel = '$nivel', foto = 'sem-foto.jpg', telefone = :telefone, endereco = :endereco , pagamento = :pagamento, comissao = :comissao, atendimento = :atendimento where id = '$id' ");
+    $query = $pdo ->prepare("UPDATE $tabela SET nome = :nome where id = '$id' ");
 }
 
 
 $query -> bindValue(":nome", "$nome");
-$query -> bindValue(":email", "$email");
-$query -> bindValue(":telefone", "$telefone");
-$query -> bindValue(":endereco", "$endereco");
-$query -> bindValue(":pagamento", "$pagamento");
-$query -> bindValue(":atendimento", "$atendimento");
-$query -> bindValue(":comissao", "$comissao");
 $query -> execute();
 
 echo 'Salvo com Sucesso';

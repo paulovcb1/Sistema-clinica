@@ -22,7 +22,7 @@ if (@count ($res) > 0 and $id != $id_reg) {
 
 
 if($id == ""){
-    $query = $pdo ->prepare("INSERT INTO $tabela SET nome = :nome, chave = :chave, grupo, pagina = :pagina = :grupo");
+    $query = $pdo ->prepare("INSERT INTO $tabela SET nome = :nome, chave = :chave, grupo = :grupo, pagina = :pagina ");
 } else {
     $query = $pdo ->prepare("UPDATE $tabela SET nome = :nome, chave = :chave, grupo = :grupo, pagina = :pagina where id = '$id' ");
 }
