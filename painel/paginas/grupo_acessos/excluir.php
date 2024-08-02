@@ -5,7 +5,7 @@ require_once("../../../conexao.php");
 
 $id = $_POST['id']; 
 
-$query2 = $pdo ->query("SELECT * FROM $tabela where grupo = '$id'");
+$query2 = $pdo ->query("SELECT * FROM $tabela where id = '$id'");
 $res2 = $query2->fetchall(PDO::FETCH_ASSOC);
 $total_acessos = @count ($res2);
 

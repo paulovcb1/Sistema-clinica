@@ -168,8 +168,10 @@ if($linhas > 0 ){
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
+									<li class="<?php echo $usuarios ?>" ><a href="convenios"><i class="fa fa-angle-right"></i> Convênio / Plano de Saude</a></li>
 									<li class="<?php echo $usuarios ?>" ><a href="usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
 									<li class="<?php echo $usuarios ?>" ><a href="funcionarios"><i class="fa fa-angle-right"></i> Funcionários</a></li>
+									<li class="<?php echo $usuarios ?>" ><a href="pacientes"><i class="fa fa-angle-right"></i> Pacientes</a></li>
 									
 								</ul>
 							</li>
