@@ -76,7 +76,7 @@ HTML;
 ?>
 
 <!-- DATA TABLE CONFERIR SEMPRE ERROS NELA POIS E RECORRENTE -->
-<script type="text/javascript">
+            <script type="text/javascript">
                 var table = new DataTable('#tabela', {
                 language: {
                     url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',

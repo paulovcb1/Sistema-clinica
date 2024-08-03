@@ -29,6 +29,7 @@ if($linhas > 0 ){
     $foto_usuario = $res[0]["foto"];
     $telefone_usuario = $res[0]["telefone"];
     $endereco_usuario = $res[0]["endereco"];
+    $atendimento_usuario = $res[0]["atendimento"];
 }
 
 
@@ -155,7 +156,7 @@ if($linhas > 0 ){
 			color:#666666 !important;
 
 		}
-	</style>  
+	</style> 
 
 	
 </head> 
@@ -216,6 +217,16 @@ if($linhas > 0 ){
 								</ul>
 							</li>
 
+							<?php
+							if($atendimento_usuario == 'Sim'){?>
+
+							
+							<li class="treeview " >
+								<a href="horarios">
+									<i class="fa fa-clock"></i> <span> Dias / Horarios</span>
+								</a>
+							</li>
+							<?php } ?>
 						</ul>
 					</div>
 					<!-- /.navbar-collapse -->

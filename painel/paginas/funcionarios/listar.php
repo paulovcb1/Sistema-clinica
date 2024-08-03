@@ -2,11 +2,11 @@
 
 $tabela = 'usuarios';
 require_once("../../../conexao.php");
-$query = $pdo ->query("SELECT * FROM $tabela order by id desc");
+$query = $pdo->query("SELECT * FROM $tabela order by id desc");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
-$linhas = @count ($res);
+$linhas = @count($res);
 if ($linhas > 0) {
-echo <<<HTML
+    echo <<<HTML
 <small>
     <table class="table table-hover" id="tabela">
     <thead>
@@ -24,46 +24,47 @@ echo <<<HTML
 	<tbody>	
 HTML;
 
-for ($i = 0; $i < $linhas; $i++) {
-    $id = $res[$i]['id'];
-    $nome = $res[$i]['nome'];
-    $email = $res[$i]['email'];
-    $telefone = $res[$i]['telefone'];
-    $nivel = $res[$i]['nivel'];
-    $foto = $res[$i]['foto'];
-    $endereco = $res[$i]['endereco'];
-    $ativo = $res[$i]['ativo'];
-    $data = $res[$i]['data'];
-    $atendimento = $res[$i]['atendimento'];
-    $comissao = $res[$i]['comissao'];
-    $pagamento = $res[$i]['pagamento'];
-    $cpf = $res[$i]['cpf'];
+    for ($i = 0; $i < $linhas; $i++) {
+        $id = $res[$i]['id'];
+        $nome = $res[$i]['nome'];
+        $email = $res[$i]['email'];
+        $telefone = $res[$i]['telefone'];
+        $nivel = $res[$i]['nivel'];
+        $foto = $res[$i]['foto'];
+        $endereco = $res[$i]['endereco'];
+        $ativo = $res[$i]['ativo'];
+        $data = $res[$i]['data'];
+        $atendimento = $res[$i]['atendimento'];
+        $comissao = $res[$i]['comissao'];
+        $pagamento = $res[$i]['pagamento'];
+        $cpf = $res[$i]['cpf'];
+        $intervalo = $res[$i]['intervalo'];
 
-    $data_formatada = implode('/', array_reverse(@explode('-', $data)));
+        $data_formatada = implode('/', array_reverse(@explode('-', $data)));
 
-    if($ativo == 'Sim'){
-        $icone = 'fa-check-square';
-        $titulo_link = 'Desativar Usuario';
-        $acao = 'Não';
-        $classe_ativo = '';
-    }else{
-        $icone = 'fa-square-o';
-        $titulo_link = 'Ativar Usuario';
-        $acao = 'Sim';
-        $classe_ativo = '#c4c4c4';
-    }
+        if ($ativo == 'Sim') {
+            $icone = 'fa-check-square';
+            $titulo_link = 'Desativar Usuario';
+            $acao = 'Não';
+            $classe_ativo = '';
+        } else {
+            $icone = 'fa-square-o';
+            $titulo_link = 'Ativar Usuario';
+            $acao = 'Sim';
+            $classe_ativo = '#c4c4c4';
+        }
 
-    if($nivel == 'Administrador' and $atendimento != 'Sim'){
-        continue;
-    }
+        if ($nivel == 'Administrador' and $atendimento != 'Sim') {
+            continue;
+        }
 
-    $mostrar_func = '';
+        $mostrar_func = '';
 
-    if($atendimento != 'Sim'){
-    $mostrar_func = 'ocultar';
-    }
+        if ($atendimento != 'Sim') {
+            $mostrar_func = 'ocultar';
+        }
 
-echo <<<HTML
+        echo <<<HTML
     <tr style="color:{$classe_ativo}">
         <td>
             <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
@@ -76,7 +77,7 @@ echo <<<HTML
         <td class="esc"><img src="images/perfil/{$foto}" width="20px" alt="Foto"></td>
         <td class="iconestabela">
         <big>
-            <a href="#" onclick="editar('{$id}','{$nome}','{$email}','{$telefone}','{$endereco}','{$nivel}','{$atendimento}','{$pagamento}','{$comissao}','{$cpf}')" title="Editar Dados"><i class="fa-regular fa-pen-to-square text-primary"></i></a>
+            <a href="#" onclick="editar('{$id}','{$nome}','{$email}','{$telefone}','{$endereco}','{$nivel}','{$atendimento}','{$pagamento}','{$comissao}','{$cpf}','{$intervalo}')" title="Editar Dados"><i class="fa-regular fa-pen-to-square text-primary"></i></a>
         </big>   
 
             <li class="dropdown head-dpdn2" style="display: inline-block;">
@@ -106,9 +107,8 @@ echo <<<HTML
         </td>
     </tr>
 HTML;
-
-}
-echo <<<HTML
+    }
+    echo <<<HTML
     </tbody>
         <small>
             <div align="center" id="mensagem-excluir">
@@ -118,7 +118,6 @@ echo <<<HTML
     </table>
     
 HTML;
-
 } else {
     echo 'Nenhum Registro Encontrado!';
 }
@@ -127,118 +126,119 @@ HTML;
 
 
 
-    <script>
-        function editar (id, nome, email, telefone, endereco, nivel, atendimento, pagamento, comissao, cpf){
-            $('#mensagem').text('');
-            $('#titulo_inserir').text('Editar Registro');
+<script>
+    function editar(id, nome, email, telefone, endereco, nivel, atendimento, pagamento, comissao, cpf, intervalo) {
+        $('#mensagem').text('');
+        $('#titulo_inserir').text('Editar Registro');
 
-            $('#id').val(id);
-            $('#nome').val(nome);
-            $('#email').val(email);
-            $('#telefone').val(telefone);
-            $('#endereco').val(endereco);
-            $('#nivel').val(nivel).change();
-            $('#atendimento').val(atendimento).change();
-            $('#comissao').val(comissao);
-            $('#pagamento').val(pagamento);
-            $('#cpf').val(cpf);
-            
+        $('#id').val(id);
+        $('#nome').val(nome);
+        $('#email').val(email);
+        $('#telefone').val(telefone);
+        $('#endereco').val(endereco);
+        $('#nivel').val(nivel).change();
+        $('#atendimento').val(atendimento).change();
+        $('#comissao').val(comissao);
+        $('#pagamento').val(pagamento);
+        $('#cpf').val(cpf);
+        $('#intervalo').val(intervalo);
 
-            $('#modalForm').modal('show');
+
+        $('#modalForm').modal('show');
+    }
+
+    function mostrar(nome, email, telefone, endereco, ativo, data, nivel, atendimento, comissao, pagamento, cpf, foto) {
+        $('#titulo_dados').text(nome);
+        $('#email_dados').text(email);
+        $('#telefone_dados').text(telefone);
+        $('#endereco_dados').text(endereco);
+        $('#ativo_dados').text(ativo);
+        $('#data_dados').text(data);
+        $('#nivel_dados').text(nivel);
+        $('#atendimento_dados').text(atendimento);
+        $('#comissao_dados').text(comissao + '%');
+        $('#pagamento_dados').text(pagamento);
+        $('#cpf_dados').text(cpf);
+        $('#foto_dados').attr("src", "images/perfil/" + foto);
+
+
+
+        $('#modalDados').modal('show');
+
+
+    }
+
+    function limparCampos() {
+        $('#id').val('');
+        $('#nome').val('');
+        $('#email').val('');
+        $('#telefone').val('');
+        $('#endereco').val('');
+        $('#atendimento').val('Não').change();
+        $('#comissao').val('');
+        $('#pagamento').val('');
+
+
+        $('#ids').val('');
+        $('#btn-deletar').hide();
+    }
+
+    function selecionar(id) {
+
+        var ids = $('#ids').val();
+
+        if ($('#seletor-' + id).is(":checked") == true) {
+            var novo_id = ids + id + '-';
+            $('#ids').val(novo_id);
+        } else {
+            var retirar = ids.replace(id + '-', '');
+            $('#ids').val(retirar);
         }
-        function mostrar (nome, email, telefone, endereco, ativo, data, nivel, atendimento,comissao, pagamento,  cpf, foto){
-            $('#titulo_dados').text(nome);
-            $('#email_dados').text(email);
-            $('#telefone_dados').text(telefone);
-            $('#endereco_dados').text(endereco);
-            $('#ativo_dados').text(ativo);
-            $('#data_dados').text(data);
-            $('#nivel_dados').text(nivel);
-            $('#atendimento_dados').text(atendimento);
-            $('#comissao_dados').text(comissao + '%');
-            $('#pagamento_dados').text(pagamento);
-            $('#cpf_dados').text(cpf);
-            $('#foto_dados').attr("src", "images/perfil/" + foto);
-
-            
-
-            $('#modalDados').modal('show');
-
-
-        }
-
-        function limparCampos(){
-            $('#id').val('');
-            $('#nome').val('');
-            $('#email').val('');
-            $('#telefone').val('');
-            $('#endereco').val('');
-            $('#atendimento').val('Não').change();
-            $('#comissao').val('');
-            $('#pagamento').val('');
-
-
-            $('#ids').val('');
-            $('#btn-deletar').hide();
-        }
-
-        function selecionar(id) {
-
-            var ids = $('#ids').val();
-
-            if($('#seletor-'+id).is(":checked") == true){
-			var novo_id = ids + id + '-';
-			$('#ids').val(novo_id);
-		}else{
-			var retirar = ids.replace(id + '-', '');
-			$('#ids').val(retirar);
-		}
 
         var ids_final = $('#ids').val();
 
-        if(ids_final != ""){
+        if (ids_final != "") {
             $('#btn-deletar').show();
-        }else {
-            $('#btn-deletar').hide(); 
+        } else {
+            $('#btn-deletar').hide();
         }
 
+    }
+
+
+    function excluirSel(id) {
+        var ids = $('#ids').val();
+        var id = ids.split("-");
+        for (i = 0; i < id.length - 1; i++) {
+            excluir(id[i])
         }
 
+        limparCampos();
+    }
 
-        function excluirSel(id){
-            var ids = $('#ids').val();
-            var id = ids.split("-");
-            for (i = 0 ; i < id.length - 1; i++){
-                    excluir(id[i])
-            }
-
-            limparCampos();
-        }
-
-        function procedimentos (id, nome){
-            $('#id_procedimento').val(id);
-            $('#nome_procedimento').text(nome);
-   
-
-            
-
-            $('#modalProcedimentos').modal('show');
-            listarProcedimentos(id);
-
-
-        }
-
-        
-        
-    </script>
+    function procedimentos(id, nome) {
+        $('#id_procedimento').val(id);
+        $('#nome_procedimento').text(nome);
 
 
 
 
-            <script type="text/javascript">
-                var table = new DataTable('#tabela', {
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
-                }, "ordering": false, "stateSave": true
-            });
-            </script>
+        $('#modalProcedimentos').modal('show');
+        listarProcedimentos(id);
+
+
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+    var table = new DataTable('#tabela', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
+        },
+        "ordering": false,
+        "stateSave": true
+    });
+</script>
