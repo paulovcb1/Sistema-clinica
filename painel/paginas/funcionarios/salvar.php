@@ -6,16 +6,17 @@ require_once("../../../conexao.php");
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 $telefone = $_POST['telefone'];
-$nivel = $_POST['grupo'];
+$nivel = $_POST['nivel'];
 $endereco = $_POST['endereco']; 
 $pagamento = $_POST['pagamento']; 
 $atendimento = $_POST['atendimento']; 
 $comissao = $_POST['comissao']; 
-$senha = '123';
 $senha_crip = sha1($senha);
 
 $cpf = $_POST['cpf']; 
 $id = $_POST['id']; 
+
+
 // validacao email
 $query = $pdo ->query("SELECT * FROM $tabela where email = '$email' ");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
@@ -24,6 +25,8 @@ if (@count ($res) > 0 and $id != $id_reg) {
     echo "Email: $email já foi Cadastrado";
     exit();
 }
+
+
 //validacao telefone evita duplicidade de dados
 $query = $pdo ->query("SELECT * FROM $tabela where telefone = '$telefone' ");
 $res = $query->fetchall(PDO::FETCH_ASSOC);

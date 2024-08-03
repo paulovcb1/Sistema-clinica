@@ -8464,6 +8464,9 @@ h4.asd label {
 		font-size: 1em;
 	}
 }
+
+
+
 /*--//responsive-design---*/
 
 
@@ -8488,3 +8491,23 @@ h4.asd label {
   display: none;
 }
 
+
+
+.text-sucess {
+  color: green;
+}
+
+
+.fotoedit{
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+}
+
+#listar_procedimentos{
+  padding: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+
+}

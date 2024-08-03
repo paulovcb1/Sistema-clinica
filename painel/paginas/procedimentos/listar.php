@@ -1,6 +1,6 @@
 <?php
 
-$tabela = 'usuarios';
+$tabela = 'procedimentos';
 require_once("../../../conexao.php");
 $senha = '123';
 $query = $pdo ->query("SELECT * FROM $tabela order by id desc");
@@ -13,12 +13,8 @@ echo <<<HTML
     <thead>
 	<tr> 
 	<th>Nome</th>	
-	<th class="esc">Telefone</th>	
-	<th class="esc">Email</th>	
-	<th class="esc">Nivel / Cargo</th>	
-	<th class="esc">Atendimento</th>	
-	<th class="esc">Comissão</th>	
-	<th class="esc">Foto</th>	
+	<th class="esc">Valor</th>	
+	<th class="esc">Tempo</th>	
 	<th>Ações</th>
 	</tr> 
 	</thead> 
@@ -28,18 +24,13 @@ HTML;
 for ($i = 0; $i < $linhas; $i++) {
     $id = $res[$i]['id'];
     $nome = $res[$i]['nome'];
-    $email = $res[$i]['email'];
-    $telefone = $res[$i]['telefone'];
-    $nivel = $res[$i]['nivel'];
-    $foto = $res[$i]['foto'];
-    $endereco = $res[$i]['endereco'];
+    $tempo = $res[$i]['tempo'];
+    $valor = $res[$i]['valor'];
     $ativo = $res[$i]['ativo'];
-    $data = $res[$i]['data'];
-    $atendimento = $res[$i]['atendimento'];
-    $comissao = $res[$i]['comissao'];
-    $pagamento = $res[$i]['pagamento'];
+    
 
-    $data_formatada = implode('/', array_reverse(@explode('-', $data)));
+    $total_valorF = number_format($valor, 2, ',', '.');
+    
 
     if($ativo == 'Sim'){
         $icone = 'fa-check-square';
@@ -53,28 +44,17 @@ for ($i = 0; $i < $linhas; $i++) {
         $classe_ativo = '#c4c4c4';
     }
 
-    $mostrar_adm = "";
-    if($nivel == 'Administrador'){
-        $senha = '*********';
-        $mostrar_adm = "ocultar";
 
-    }
 
 echo <<<HTML
     <tr style="color:{$classe_ativo}">
         <td>
             <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
             {$nome}</td>
-        <td class="esc">{$telefone}</td>
-        <td class="esc">{$email}</td>
-        <td class="esc">{$nivel}</td>
-        <td class="esc">{$atendimento}</td>
-        <td class="esc">{$comissao}%</td>
-        <td class="esc"><img src="images/perfil/{$foto}" width="20px" alt="Foto"></td>
+        <td class="esc">{$valor}</td>
+        <td class="esc">{$tempo} Minutos</td>
         <td>
-        <big>
-            <a href="#" onclick="editar('{$id}','{$nome}','{$email}','{$telefone}','{$endereco}','{$nivel}','{$atendimento}','{$pagamento}','{$comissao}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
-        </big>   
+            <a href="#" onclick="editar('{$id}','{$nome}','{$valor}','{$tempo}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
 
             <li class="dropdown head-dpdn2" style="display: inline-block;">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
@@ -87,17 +67,9 @@ echo <<<HTML
                     </li>										
                 </ul>
             </li>
-            <big>
-                <a href="#" onclick="mostrar('{$nome}','{$email}','{$telefone}','{$endereco}','{$ativo}','{$data_formatada}', '{$senha}', '{$nivel}', '{$foto}','{$atendimento}','{$pagamento}','{$comissao}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
-            </big>
-
 
             <big>
                 <a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} text-success"></i></a>
-            </big>
-
-            <big>
-                <a class="{$mostrar_adm}" href="#" onclick="permissoes('{$id}', '{$nome}')" title="Dar Permissões"><i class="fa-solid fa-lock text-primary"></i></a>
             </big>
 
         </td>
@@ -131,52 +103,25 @@ HTML;
             </script>
 
     <script>
-        function editar (id, nome, email, telefone,  endereco, grupo, atendimento, pagamento, comissao){
+        function editar (id, nome, valor, tempo){
             $('#mensagem').text('');
             $('#titulo_inserir').text('Editar Registro');
 
             $('#id').val(id);
             $('#nome').val(nome);
-            $('#email').val(email);
-            $('#telefone').val(telefone);
-            $('#endereco').val(endereco);
-            $('#grupo').val(grupo).change();
-            $('#atendimento').val(atendimento).change();
-            $('#comissao').val(comissao);
-            $('#pagamento').val(pagamento);
+            $('#valor').val(valor);
+            $('#tempo').val(tempo);
             
 
             $('#modalForm').modal('show');
         }
-        function mostrar (nome, email, telefone, endereco, ativo, data, senha, nivel, foto, atendimento, pagamento, comissao){
-            $('#titulo_dados').text(nome);
-            $('#email_dados').text(email);
-            $('#telefone_dados').text(telefone);
-            $('#endereco_dados').text(endereco);
-            $('#ativo_dados').text(ativo);
-            $('#data_dados').text(data);
-            $('#nivel_dados').text(nivel);
-            $('#atendimento_dados').text(atendimento);
-            $('#comissao_dados').text(comissao + '%');
-            $('#pagamento_dados').text(pagamento);
-            $('#foto_dados').attr("src", "images/perfil/" + foto);
-
-            
-
-            $('#modalDados').modal('show');
-
-
-        }
+        
 
         function limparCampos(){
             $('#id').val('');
             $('#nome').val('');
-            $('#email').val('');
-            $('#telefone').val('');
-            $('#endereco').val('');
-            $('#atendimento').val('Não').change();
-            $('#comissao').val('');
-            $('#pagamento').val('');
+            $('#valor').val('');
+            $('#tempo').val('');
 
 
             $('#ids').val('');
@@ -216,18 +161,6 @@ HTML;
             limparCampos();
         }
 
-        function permissoes (id, nome){
-            $('#id_permissoes').val(id);
-            $('#nome_permissoes').text(nome);
-   
-
-            
-
-            $('#modalPermissoes').modal('show');
-            listarPermissoes(id);
-
-
-        }
 
         function listarPermissoes (id){
             $.ajax({

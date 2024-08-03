@@ -104,8 +104,11 @@ HTML;
         $('#telefone').val(telefone);
         $('#endereco').val(endereco);
         $('#data_nasc').val(data_nasc);
+        $('#cpf_nasc').val(cpf);
         $('#convenio').val(convenio).change();
         $('#profissao').val(profissao);
+
+        
         $('#modalForm').modal('show');
     }
 

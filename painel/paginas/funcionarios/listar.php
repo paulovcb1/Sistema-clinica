@@ -2,8 +2,7 @@
 
 $tabela = 'usuarios';
 require_once("../../../conexao.php");
-$senha = '123';
-$query = $pdo ->query("SELECT * FROM $tabela where nivel != 'Administrador' order by id desc");
+$query = $pdo ->query("SELECT * FROM $tabela order by id desc");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
 $linhas = @count ($res);
 if ($linhas > 0) {
@@ -54,11 +53,14 @@ for ($i = 0; $i < $linhas; $i++) {
         $classe_ativo = '#c4c4c4';
     }
 
-    $mostrar_adm = "";
-    if($nivel == 'Administrador'){
-        $senha = '*********';
-        $mostrar_adm = "ocultar";
+    if($nivel == 'Administrador' and $atendimento != 'Sim'){
+        continue;
+    }
 
+    $mostrar_func = '';
+
+    if($atendimento != 'Sim'){
+    $mostrar_func = 'ocultar';
     }
 
 echo <<<HTML
@@ -72,13 +74,13 @@ echo <<<HTML
         <td class="esc">{$atendimento}</td>
         <td class="esc">{$comissao}%</td>
         <td class="esc"><img src="images/perfil/{$foto}" width="20px" alt="Foto"></td>
-        <td>
+        <td class="iconestabela">
         <big>
-            <a href="#" onclick="editar('{$id}','{$nome}','{$email}','{$telefone}','{$endereco}','{$nivel}','{$atendimento}','{$pagamento}','{$comissao}','{$cpf}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
+            <a href="#" onclick="editar('{$id}','{$nome}','{$email}','{$telefone}','{$endereco}','{$nivel}','{$atendimento}','{$pagamento}','{$comissao}','{$cpf}')" title="Editar Dados"><i class="fa-regular fa-pen-to-square text-primary"></i></a>
         </big>   
 
             <li class="dropdown head-dpdn2" style="display: inline-block;">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"title="Deletar Funcionario"></i></big></a>
 
                 <ul class="dropdown-menu" style="margin-left:-230px;">
                     <li>
@@ -89,7 +91,7 @@ echo <<<HTML
                 </ul>
             </li>
             <big>
-                <a href="#" onclick="mostrar('{$nome}','{$email}','{$telefone}','{$endereco}','{$ativo}','{$data_formatada}', '{$senha}', '{$nivel}', '{$foto}','{$atendimento}','{$pagamento}','{$comissao}','{$cpf}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
+                <a href="#" onclick="mostrar('{$nome}','{$email}','{$telefone}','{$endereco}','{$ativo}','{$data_formatada}', '{$nivel}', '{$atendimento}', '{$comissao}','{$pagamento}','{$cpf}','{$foto}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
             </big>
 
 
@@ -98,7 +100,7 @@ echo <<<HTML
             </big>
 
             <big>
-                <a class="{$mostrar_adm}" href="#" onclick="permissoes('{$id}', '{$nome}')" title="Dar Permissões"><i class="fa-solid fa-lock text-primary"></i></a>
+                <a class="{$mostrar_func}" href="#" onclick="procedimentos('{$id}', '{$nome}')" title="Inserir Procedimentos"><i class="fa-solid fa-stethoscope text-sucess"></i></a>
             </big>
 
         </td>
@@ -123,13 +125,7 @@ HTML;
 
 ?>
 
-        <script type="text/javascript">
-                var table = new DataTable('#tabela', {
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
-                }, "ordering": false, "stateSave": true
-            });
-            </script>
+
 
     <script>
         function editar (id, nome, email, telefone, endereco, nivel, atendimento, pagamento, comissao, cpf){
@@ -150,7 +146,7 @@ HTML;
 
             $('#modalForm').modal('show');
         }
-        function mostrar (nome, email, telefone, endereco, ativo, data, senha, nivel, foto, atendimento, pagamento, comissao, cpf){
+        function mostrar (nome, email, telefone, endereco, ativo, data, nivel, atendimento,comissao, pagamento,  cpf, foto){
             $('#titulo_dados').text(nome);
             $('#email_dados').text(email);
             $('#telefone_dados').text(telefone);
@@ -219,34 +215,18 @@ HTML;
             limparCampos();
         }
 
-        function permissoes (id, nome){
-            $('#id_permissoes').val(id);
-            $('#nome_permissoes').text(nome);
+        function procedimentos (id, nome){
+            $('#id_procedimento').val(id);
+            $('#nome_procedimento').text(nome);
    
 
             
 
-            $('#modalPermissoes').modal('show');
-            listarPermissoes(id);
+            $('#modalProcedimentos').modal('show');
+            listarProcedimentos(id);
 
 
         }
-
-        function listarPermissoes (id){
-            $.ajax({
-            url: 'paginas/' + pag + "/listar_permissoes.php",
-            method: 'POST',
-            data: {id},
-            dataType: "html",
-
-            success:function(result){
-                $("#listar_permissoes").html(result);
-                $('#mensagem_permissao').text('');
-        }
-    });
-
-        }
-
 
         
         
@@ -255,4 +235,10 @@ HTML;
 
 
 
-
+            <script type="text/javascript">
+                var table = new DataTable('#tabela', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
+                }, "ordering": false, "stateSave": true
+            });
+            </script>

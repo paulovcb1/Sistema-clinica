@@ -136,6 +136,27 @@ if($linhas > 0 ){
   
 	<script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
 
+<!-- SCRIPT SEARCH2  -->
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+	<style type="text/css">
+		.select2-selection__rendered {
+			line-height: 36px !important;
+			font-size:16px !important;
+			color:#666666 !important;
+
+		}
+
+		.select2-selection {
+			height: 36px !important;
+			font-size:16px !important;
+			color:#666666 !important;
+
+		}
+	</style>  
+
 	
 </head> 
 <body class="cbp-spmenu-push">
@@ -168,7 +189,6 @@ if($linhas > 0 ){
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
-									<li class="<?php echo $usuarios ?>" ><a href="convenios"><i class="fa fa-angle-right"></i> Convênio / Plano de Saude</a></li>
 									<li class="<?php echo $usuarios ?>" ><a href="usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
 									<li class="<?php echo $usuarios ?>" ><a href="funcionarios"><i class="fa fa-angle-right"></i> Funcionários</a></li>
 									<li class="<?php echo $usuarios ?>" ><a href="pacientes"><i class="fa fa-angle-right"></i> Pacientes</a></li>
@@ -186,6 +206,8 @@ if($linhas > 0 ){
 								<ul class="treeview-menu">
 									<li  class="<?php echo $cargos ?>"><a href="cargos"><i class="fa fa-angle-right"></i> Cargos</a></li>
 									<li  class="<?php echo $grupo_acessos ?>"><a href="grupo_acessos"><i class="fa fa-angle-right"></i> Grupos</a></li>
+									<li class="<?php echo $usuarios ?>" ><a href="convenios"><i class="fa fa-angle-right"></i> Convênio / Plano de Saude</a></li>
+									<li class="<?php echo $usuarios ?>" ><a href="procedimentos"><i class="fa fa-angle-right"></i> Procedimentos</a></li>
 									
 								</ul>	
 								<ul class="treeview-menu">
