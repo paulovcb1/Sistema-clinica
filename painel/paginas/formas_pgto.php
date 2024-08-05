@@ -1,17 +1,16 @@
 <?php
-$pag = 'convenios';
+$pag = 'formas_pgto';
 
 
-if(@$convenios == 'ocultar'){
+if(@$formas_pgto == 'ocultar'){
 	echo"<script>window.location='../index.php'</script>";
 	exit();
 }
 ?>
-
 <div class="main-page margin-mobile">
 <a onclick="inserir()" class="btn btn-primary">
 <i class="fa-solid fa-plus"></i>
-	Convênio
+    Formas de Pagamento
 </a>
 
 <li class="dropdown head-dpdn2" style="display: inline-block;">
@@ -51,18 +50,12 @@ if(@$convenios == 'ocultar'){
 				
 
 					<div class="row">
-
-						<div class="col-md-5">							
-								<label>Convênio</label>
-								<input type="text" class="form-control" id="convenio" name="convenio" placeholder="Nome do Convênio" required>							
+						<div class="col-md-6">							
+								<label>Nome</label>
+								<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Cargo" required>							
 						</div>
 
-						<div class="col-md-4">							
-								<label>Comissão %</label>
-								<input type="number" class="form-control" id="comissao" name="comissao" placeholder="Nome do Convênio" required>							
-						</div>
-
-						<div class="col-md-2" style="margin-top: 22px">							
+						<div class="col-md-6" style="margin-top: 22px">							
 								<button type="submit" class="btn btn-primary" >Salvar</button>							
 						</div>
 

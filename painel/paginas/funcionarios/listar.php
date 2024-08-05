@@ -103,6 +103,9 @@ HTML;
             <big>
                 <a class="{$mostrar_func}" href="#" onclick="procedimentos('{$id}', '{$nome}')" title="Inserir Procedimentos"><i class="fa-solid fa-stethoscope text-sucess"></i></a>
             </big>
+            <big>
+                <a class="{$mostrar_func}" href="#" onclick="horarios('{$id}', '{$nome}')" title="Inserir Horarios"><i class="fa-regular fa-clock "></i></a>
+            </big>
 
         </td>
     </tr>
@@ -225,6 +228,19 @@ HTML;
 
         $('#modalProcedimentos').modal('show');
         listarProcedimentos(id);
+
+
+    }
+
+    function horarios(id, nome) {
+        $('#id_dias').val(id);
+        $('#nome_horario').text(nome);
+
+
+
+
+        $('#modalHorarios').modal('show');
+        listarDias(id);
 
 
     }

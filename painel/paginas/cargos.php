@@ -1,5 +1,11 @@
 <?php
 $pag = 'cargos';
+
+
+if(@$cargos == 'ocultar'){
+	echo"<script>window.location='../index.php'</script>";
+	exit();
+}
 ?>
 
 <div class="main-page margin-mobile">

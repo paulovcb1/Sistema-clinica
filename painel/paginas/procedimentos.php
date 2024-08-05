@@ -1,5 +1,10 @@
 <?php
 $pag = 'procedimentos';
+
+if(@$procedimentos == 'ocultar'){
+	echo "<script> window.location='../index.php' </script>";
+	exit();
+}
 ?>
 <div class="main-page margin-mobile">
 <a onclick="inserir()" class="btn btn-primary">

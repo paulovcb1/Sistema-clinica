@@ -1,5 +1,11 @@
 <?php
 $pag = 'grupo_acessos';
+
+
+if(@$grupo_acessos == 'ocultar'){
+	echo"<script>window.location='../index.php'</script>";
+	exit();
+}
 ?>
 
 <div class="main-page margin-mobile">

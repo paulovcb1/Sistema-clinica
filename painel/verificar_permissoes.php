@@ -6,6 +6,7 @@ $id_usuario = $_SESSION['id'];
 
 $home = 'ocultar';
 $configuracoes = 'ocultar';
+$horarios = 'ocultar';
 
 //grupo pessoas
 $usuarios = 'ocultar';
@@ -17,9 +18,10 @@ $grupo_acessos = 'ocultar';
 $acessos = 'ocultar';
 $cargos = 'ocultar';
 $convenios = 'ocultar';
+$procedimentos = 'ocultar';
 
 
-$query = $pdo->query("SELECT * FROM pacientes_permissoes where usuario = '$id_usuario'");
+$query = $pdo->query("SELECT * FROM usuarios_permissoes where usuario = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 if($total_reg > 0){
@@ -74,6 +76,13 @@ if($total_reg > 0){
 		if($chave == 'convenios'){
 			$convenios = '';
 		}
+		if($chave == 'procedimentos'){
+			$procedimentos = '';
+		}
+
+		if($chave == 'horarios'){
+			$horarios = '';
+		}
 
 		
     }
@@ -109,14 +118,13 @@ if($home != 'ocultar'){
 }
 
 
-
-if ($usuarios == "ocultar" and $funcionarios == "ocultar" and $pessoas == "ocultar"){
+if ($usuarios == "ocultar" and $funcionarios == "ocultar" and $pacientes == "ocultar"){
     $menu_pessoas = 'ocultar';
 } else {
     $menu_pessoas = '';
 }
 
-if($grupo_acessos == 'ocultar' and $acessos == 'ocultar' and $cargos == 'ocultar'and $convenios == 'ocultar'){
+if($grupo_acessos == 'ocultar' and $acessos == 'ocultar' and $cargos == 'ocultar'and $convenios == 'ocultar' and $procedimentos == 'ocultar'){
     $menu_cadastro = 'ocultar';
 } else {
      $menu_cadastro = '';
