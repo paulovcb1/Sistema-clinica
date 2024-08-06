@@ -34,18 +34,23 @@ $res = $query->fetchall(PDO::FETCH_ASSOC);
 $linhas = @count ($res);
 
 if ($linhas == 0){
-    $query = $pdo ->query("INSERT INTO config SET nome = '$nome_sistema', email = '$email_sistema', telefone = '$telefone_sistema', logo = 'foto.png', logo_relatorio = 'foto.jpg', icone = 'icone.png', ativo = 'Sim'  ");
+    $query = $pdo ->query("INSERT INTO config SET nome = '$nome_sistema', email = '$email_sistema', telefone = '$telefone_sistema', logo = 'foto.png', logo_relatorio = 'foto.jpg', icone = 'icone.png', ativo = 'Sim' , marca_dagua = 'Sim' ");
     //VERIFICAR NOME DAS FOTOS DO BANCO DE DADOS COM AS DO ARQUIVOS
 } else {
     $nome_sistema = $res[0] ['nome'];
     $email_sistema = $res[0] ['email'];
     $telefone_sistema = $res[0] ['telefone'];
     $endereco_sistema = $res[0] ['endereco'];
-    $instagram_sistema = $res[0] ['instagram'];
     $logo_sistema = $res[0] ['logo'];
     $logo_relatorio = $res[0] ['logo_relatorio'];
     $icone_sistema = $res[0] ['icone'];
     $ativo_sistema = $res[0] ['ativo'];
+    $comissao_sistema = $res[0] ['comissao'];
+    $token_sistema = $res[0] ['token'];
+    $instancia_sistema = $res[0] ['instancia'];
+    $horas_confirmacao_sistema = $res[0] ['horas_confirmacao'];
+    $marca_dagua = $res[0] ['marca_dagua'];
+    $whatsapp_sistema = '55'.preg_replace('/[ ()-]+/' , '' , $telefone_sistema);
 
 
     if($ativo_sistema != 'Sim' and $ativo_sistema != ''){

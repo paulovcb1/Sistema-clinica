@@ -12,6 +12,11 @@ if(@$procedimentos == 'ocultar'){
     Novo Procedimento
 </a>
 
+<a href="rel/procedimentos_class.php" class="btn btn-danger" style="position: absolute; right: 30px" target="_blank">
+<i class="fa-regular fa-file-pdf"></i>
+    Gerar Relatório 
+</a>
+
 <li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none">
 		<i class="fa-solid fa-trash"></i>

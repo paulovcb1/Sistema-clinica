@@ -7,7 +7,11 @@ $nome = $_POST['nome_sistema'];
 $email = $_POST['email_sistema'];
 $telefone = $_POST['telefone_sistema'];
 $endereco = $_POST['endereco_sistema']; 
-$instagram_sistema = $_POST['instagram_sistema'];
+$token = $_POST['token_sistema'];
+$horas_confirmacao = $_POST['horas_confirmacao_sistema'];
+$instancia = $_POST['instancia_sistema'];
+$comissao = $_POST['comissao_sistema'];
+$marca_dagua = $_POST['marca_dagua'];
 
 
 
@@ -63,14 +67,18 @@ if(@$_FILES['foto-icone']['name'] != ""){
 
 
 
-    $query = $pdo ->prepare("UPDATE $tabela SET nome = :nome, email = :email, telefone = :telefone, endereco = :endereco, instagram = :instagram where id = '1' ");
+    $query = $pdo ->prepare("UPDATE $tabela SET nome = :nome, email = :email, telefone = :telefone, endereco = :endereco, token = :token, instancia = :instancia, horas_confirmacao = :horas_confirmacao, comissao = :comissao, marca_dagua = :marca_dagua where id = '1' ");
 
 
 $query -> bindValue(":nome", "$nome");
 $query -> bindValue(":email", "$email");
 $query -> bindValue(":telefone", "$telefone");
 $query -> bindValue(":endereco", "$endereco");
-$query -> bindValue(":instagram", "$instagram_sistema");
+$query -> bindValue(":token", "$token");
+$query -> bindValue(":instancia", "$instancia");
+$query -> bindValue(":horas_confirmacao", "$horas_confirmacao");
+$query -> bindValue(":comissao", "$comissao");
+$query -> bindValue(":marca_dagua", "$marca_dagua");
 $query -> execute();
 
 echo 'Editado com Sucesso';

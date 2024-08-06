@@ -11,6 +11,7 @@ $endereco = $_POST['endereco'];
 $pagamento = $_POST['pagamento'];
 $atendimento = $_POST['atendimento'];
 $comissao = $_POST['comissao'];
+$senha = 123;
 $senha_crip = sha1($senha);
 
 $cpf = $_POST['cpf'];
@@ -56,3 +57,19 @@ $query->bindValue(":cpf", "$cpf");
 $query->execute();
 
 echo 'Salvo com Sucesso';
+
+if($atendimento == 'Sim' and $id == "" and $token_sistema != ""){
+    //envio api whatsapp
+	
+		$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+
+		$mensagem = '*'.$nome_sistema.'* %0A';
+		$mensagem .= 'Você foi cadastrado em nosso sistema  %0A';
+		$mensagem .= '*Email:* '.$email.' %0A%0A';	
+		$mensagem .= '*Senha:* '.$senha.' %0A%0A';	
+		$mensagem .= '_Faça seu acesso e troque sua senha_%0A';	
+		$mensagem .= '*Link do sistema:* '.$url_sistema.' %0A%0A';	
+		$mensagem .= '_Mandaremos o contrato em PDF_ %0A';
+
+		require("../../apis/texto.php");
+}

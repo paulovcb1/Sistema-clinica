@@ -25,7 +25,7 @@ if($id == ""){
 }
 
 
-$query -> bindValue(":nome", "$nome");
+$query -> bindValue(":nome", "$nome"); 
 $query -> execute();
 
 echo 'Salvo com Sucesso';
