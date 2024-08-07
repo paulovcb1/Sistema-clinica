@@ -8,6 +8,7 @@ $valor = $_POST['valor'];
 $tempo = $_POST['tempo'];
 $valor = str_replace(',', '.', $valor);
 $id = $_POST['id']; 
+$convenio = $_POST['convenio']; 
 
 
 // validacao nome
@@ -23,9 +24,9 @@ if (@count ($res) > 0 and $id != $id_reg) {
 
 
 if($id == ""){
-    $query = $pdo ->prepare("INSERT INTO $tabela SET nome = :nome, valor = :valor, tempo =  '$tempo', ativo = 'Sim' ");
+    $query = $pdo ->prepare("INSERT INTO $tabela SET nome = :nome, valor = :valor, tempo =  '$tempo', ativo = 'Sim', convenio = '$convenio' ");
 } else {
-    $query = $pdo ->prepare("UPDATE $tabela SET nome = :nome, valor = :valor, tempo =  '$tempo' where id = '$id' ");
+    $query = $pdo ->prepare("UPDATE $tabela SET nome = :nome, valor = :valor, tempo =  '$tempo', convenio = '$convenio' where id = '$id' ");
 }
 
 

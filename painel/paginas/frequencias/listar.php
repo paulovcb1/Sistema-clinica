@@ -1,21 +1,18 @@
 <?php
 
-$tabela = 'procedimentos';
+$tabela = 'frequencias';
 require_once("../../../conexao.php");
-$senha = '123';
 $query = $pdo ->query("SELECT * FROM $tabela order by id desc");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
 $linhas = @count ($res);
 if ($linhas > 0) {
 echo <<<HTML
 <small>
-    <table class="table table-hover" id="tabela">
-    <thead>
+	<table class="table table-hover" id="tabela">
+	<thead> 
 	<tr> 
-	<th>Nome</th>	
-	<th class="esc">Valor</th>	
-	<th class="esc">Tempo</th>	
-	<th class="esc">Convênio</th>	
+	<th>Frequência</th> 
+	<th>Dias</th>
 	<th>Ações</th>
 	</tr> 
 	</thead> 
@@ -24,45 +21,21 @@ HTML;
 
 for ($i = 0; $i < $linhas; $i++) {
     $id = $res[$i]['id'];
-    $nome = $res[$i]['nome'];
-    $tempo = $res[$i]['tempo'];
-    $valor = $res[$i]['valor'];
-    $ativo = $res[$i]['ativo'];
-    $convenio = $res[$i]['convenio'];
-    
-
-    $total_valorF = number_format($valor, 2, ',', '.');
-    
-
-    if($ativo == 'Sim'){
-        $icone = 'fa-check-square';
-        $titulo_link = 'Desativar Usuario';
-        $acao = 'Não';
-        $classe_ativo = '';
-    }else{
-        $icone = 'fa-square-o';
-        $titulo_link = 'Ativar Usuario';
-        $acao = 'Sim';
-        $classe_ativo = '#c4c4c4';
-    }
-
-    $classe_convenio = '';
-    if ($convenio == 'Não'){
-        $classe_convenio = 'red';
-    }
+    $frequencia = $res[$i]['frequencia'];
+    $dias = $res[$i]['dias'];
 
 
 
 echo <<<HTML
-    <tr style="color:{$classe_ativo}">
+    <tr>
         <td>
             <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
-            {$nome}</td>
-        <td class="esc">{$valor}</td>
-        <td class="esc">{$tempo} Minutos</td>
-        <td class="esc" style="color:{$classe_convenio}">{$convenio}</td>
+            {$frequencia}</td>
+        <td class="esc">{$dias}</td>
         <td>
-            <a href="#" onclick="editar('{$id}','{$nome}','{$valor}','{$tempo}','{$convenio}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
+        <big>
+            <a href="#" onclick="editar('{$id}','{$frequencia}','{$dias}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
+        </big>   
 
             <li class="dropdown head-dpdn2" style="display: inline-block;">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
@@ -76,15 +49,12 @@ echo <<<HTML
                 </ul>
             </li>
 
-            <big>
-                <a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} text-success"></i></a>
-            </big>
-
         </td>
     </tr>
 HTML;
 
 }
+
 echo <<<HTML
     </tbody>
         <small>
@@ -102,7 +72,8 @@ HTML;
 
 ?>
 
-        <script type="text/javascript">
+<!-- DATA TABLE CONFERIR SEMPRE ERROS NELA POIS E RECORRENTE -->
+<script type="text/javascript">
                 var table = new DataTable('#tabela', {
                 language: {
                     url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
@@ -111,30 +82,24 @@ HTML;
             </script>
 
     <script>
-        function editar (id, nome, valor, tempo, convenio){
+        function editar (id, frequencia, dias){
             $('#mensagem').text('');
             $('#titulo_inserir').text('Editar Registro');
 
             $('#id').val(id);
-            $('#nome').val(nome);
-            $('#valor').val(valor);
-            $('#tempo').val(tempo);
-            $('#convenio').val(convenio);
+            $('#frequencia').val(frequencia);
+            $('#dias').val(dias);
+
             
 
             $('#modalForm').modal('show');
         }
-        
+    
 
         function limparCampos(){
             $('#id').val('');
-            $('#nome').val('');
-            $('#valor').val('');
-            $('#tempo').val('');
-            $('#convenio').val('Sim').change();
-
-
-            $('#ids').val('');
+            $('#frequencia').val('');
+            $('#dias').val('');
             $('#btn-deletar').hide();
         }
 
@@ -170,25 +135,6 @@ HTML;
 
             limparCampos();
         }
-
-
-        function listarPermissoes (id){
-            $.ajax({
-            url: 'paginas/' + pag + "/listar_permissoes.php",
-            method: 'POST',
-            data: {id},
-            dataType: "html",
-
-            success:function(result){
-                $("#listar_permissoes").html(result);
-                $('#mensagem_permissao').text('');
-        }
-    });
-
-        }
-
-
-        
         
     </script>
 

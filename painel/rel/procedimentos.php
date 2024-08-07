@@ -97,9 +97,10 @@ $data_hoje = utf8_encode(strftime('%A, %d de %B de %Y', strtotime('today')));
 			<thead>
 
 				<tr id="cabeca" style="margin-left: 0px; background-color:#CCC">
-					<td style="width: 60%;">NOME DO PROCEDIMENTO</td>
+					<td style="width: 50%;">NOME DO PROCEDIMENTO</td>
 					<td style="width: 30%;"> R$ VALOR</td>
 					<td style="width: 10%;"> ATIVO</td>
+					<td style="width: 10%;"> CONVÊNIO</td>
 				</tr>
 			</thead>
 		</table>
@@ -139,6 +140,7 @@ $data_hoje = utf8_encode(strftime('%A, %d de %B de %Y', strtotime('today')));
 						$tempo = $res[$i]['tempo'];
 						$valor = $res[$i]['valor'];
 						$ativo = $res[$i]['ativo'];
+						$convenio = $res[$i]['convenio'];
 
 
 						$total_valorF = number_format($valor, 2, ',', '.');
@@ -157,14 +159,20 @@ $data_hoje = utf8_encode(strftime('%A, %d de %B de %Y', strtotime('today')));
 							$classe_ativo = '#c4c4c4';
 							$inativos ++;
 						}
+						
+						$classe_convenio = '';
+						if($convenio == 'Não'){
+							$classe_convenio = 'red';
+						}
 
 				?>
 
 
 						<tr style="color:<?php echo $classe_ativo ?>">
-							<td style="width:60%"><?php echo $nome ?></td>
+							<td style="width:50%"><?php echo $nome ?></td>
 							<td style="width:30%">R$ <?php echo $valor ?></td>
 							<td style="width:10%;"><?php echo $ativo ?></td>
+							<td style="width:10%; color:<?php echo $classe_convenio ?>"><?php echo $convenio ?></td>
 						</tr>
 
 				<?php }

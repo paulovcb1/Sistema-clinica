@@ -16,7 +16,9 @@ if ($linhas > 0) {
         <th class="esc">CPF</th>    
         <th class="esc">Telefone</th>    
         <th class="esc">Data de Nascimento</th>    
+        <th class="esc">Sexo</th>    
         <th class="esc">Convênio</th>    
+        <th class="esc">Observações</th>    
         <th>Ações</th>
         </tr> 
         </thead> 
@@ -33,6 +35,8 @@ HTML;
         $data_nasc = $res[$i]['data_nasc'];
         $convenio = $res[$i]['convenio'];
         $profissao = $res[$i]['profissao'];
+        $sexo = $res[$i]['sexo'];
+        $obs = $res[$i]['obs'];
 
         $data_nasc_formatada = implode('/', array_reverse(explode('-', $data_nasc)));
         $data_cad_formatada = implode('/', array_reverse(explode('-', $data_cad)));
@@ -52,10 +56,12 @@ HTML;
             <td class="esc">{$cpf}</td>
             <td class="esc">{$telefone}</td>
             <td class="esc">{$data_nasc_formatada}</td>
+            <td class="esc">{$sexo}</td>
             <td class="esc">{$nome_convenio}</td>
+            <td class="esc">{$obs}</td>
             <td>
                 <big>
-                    <a href="#" onclick="editar('{$id}','{$nome}','{$telefone}','{$endereco}','{$data_nasc_formatada}','{$cpf}','{$convenio}','{$profissao}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
+                    <a href="#" onclick="editar('{$id}','{$nome}','{$telefone}','{$endereco}','{$data_nasc }','{$cpf}','{$convenio}','{$profissao}','{$sexo}','{$obs}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
                 </big>
                 <li class="dropdown head-dpdn2" style="display: inline-block;">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
@@ -68,7 +74,7 @@ HTML;
                     </ul>
                 </li>
                 <big>
-                    <a href="#" onclick="mostrar('{$nome}','{$telefone}','{$endereco}','{$data_nasc_formatada}','{$data_cad_formatada}','{$cpf}','{$convenio}','{$profissao}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
+                    <a href="#" onclick="mostrar('{$nome}','{$telefone}','{$endereco}','{$data_nasc_formatada}','{$data_cad_formatada}','{$cpf}','{$convenio}','{$profissao}','{$sexo}','{$obs}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
                 </big>
             </td>
         </tr>
@@ -96,7 +102,7 @@ HTML;
         }, "ordering": false, "stateSave": true
     });
 
-    function editar(id, nome, telefone, endereco, data_nasc, cpf, convenio, profissao){
+    function editar(id, nome, telefone, endereco, data_nasc, cpf, convenio, profissao, sexo, obs){
         $('#mensagem').text(''), 
         $('#titulo_inserir').text('Editar Registro');
         $('#id').val(id);
@@ -104,15 +110,17 @@ HTML;
         $('#telefone').val(telefone);
         $('#endereco').val(endereco);
         $('#data_nasc').val(data_nasc);
-        $('#cpf_nasc').val(cpf);
+        $('#cpf').val(cpf);
         $('#convenio').val(convenio).change();
         $('#profissao').val(profissao);
+        $('#sexo').val(sexo);
+        $('#obs').val(obs);
 
         
         $('#modalForm').modal('show');
     }
 
-    function mostrar(nome, telefone, endereco, data_nasc, data_cad, cpf, convenio, profissao){
+    function mostrar(nome, telefone, endereco, data_nasc, data_cad, cpf, convenio, profissao, sexo, obs){
 
         $('#titulo_dados').text(nome);
         $('#cpf_dados').text(cpf);
@@ -122,6 +130,8 @@ HTML;
         $('#profissao_dados').text(profissao);
         $('#convenio_dados').text(convenio);
         $('#data_cad_dados').text(data_cad);
+        $('#sexo_dados').text(sexo);
+        $('#obs_dados').text(obs);
         $('#modalDados').modal('show');
     }
 
@@ -134,6 +144,8 @@ HTML;
         $('#profissao').val('');
         $('#convenio').val('');
         $('#data_nasci').val('');
+        $('#obs').val('');
+        $('#sexo').val('').change();
         $('#ids').val('');
         $('#btn-deletar').hide();
     }

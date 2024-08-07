@@ -218,6 +218,7 @@ if ($linhas > 0) {
 									<li class="<?php echo $convenios ?>"><a href="convenios"><i class="fa fa-angle-right"></i> Convênio / Plano de Saude</a></li>
 									<li class="<?php echo $procedimentos ?>"><a href="procedimentos"><i class="fa fa-angle-right"></i> Procedimentos</a></li>
 									<li class="<?php echo $formas_pgto ?>"><a href="formas_pgto"><i class="fa fa-angle-right"></i> Formas de Pagamento</a></li>
+									<li class="<?php echo $frequencias ?>"><a href="frequencias"><i class="fa fa-angle-right"></i> Frequências de Pagamento</a></li>
 
 								</ul>
 								<ul class="treeview-menu">
