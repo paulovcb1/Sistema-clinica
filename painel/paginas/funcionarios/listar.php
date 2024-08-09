@@ -95,11 +95,6 @@ HTML;
                 <a href="#" onclick="mostrar('{$nome}','{$email}','{$telefone}','{$endereco}','{$ativo}','{$data_formatada}', '{$nivel}', '{$atendimento}', '{$comissao}','{$pagamento}','{$cpf}','{$foto}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
             </big>
 
-
-            <big>
-                <a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} text-success"></i></a>
-            </big>
-
             <big>
                 <a class="{$mostrar_func}" href="#" onclick="procedimentos('{$id}', '{$nome}')" title="Inserir Procedimentos"><i class="fa-solid fa-stethoscope text-sucess"></i></a>
             </big>
@@ -126,7 +121,6 @@ HTML;
 }
 
 ?>
-
 
 
 <script>

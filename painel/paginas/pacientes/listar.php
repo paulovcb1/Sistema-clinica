@@ -9,7 +9,7 @@ $linhas = @count($res);
 if ($linhas > 0) {
     echo <<<HTML
     <small>
-        <table class="table table-hover" id="tabela">
+        <table class="table table-dark table-hover" id="tabela">
         <thead>
         <tr> 
         <th>Nome</th>    

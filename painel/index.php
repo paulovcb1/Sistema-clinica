@@ -227,6 +227,18 @@ if ($linhas > 0) {
 								</ul>
 							</li>
 
+							<li class="treeview <?php echo $menu_financeiro ?>">
+								<a href="#">
+									<i class="fa fa-usd"></i>
+									<span>Financeiro</span>
+									<i class="fa fa-angle-left pull-right"></i>
+								</a>
+								<ul class="treeview-menu">
+									<li class="<?php echo $receber ?>"><a href="receber"><i class="fa fa-angle-right"></i> Recebimentos</a></li>
+									<li class="<?php echo $pagar ?>"><a href="pagar"><i class="fa fa-angle-right"></i> Despesas / Pagamentos</a></li>
+								</ul>
+							</li>
+
 							<?php
 							if ($atendimento_usuario == 'Sim') { ?>
 
@@ -482,9 +494,13 @@ if ($linhas > 0) {
 					<div class="row">
 						<div class="col-md-4">
 							<label for="">Marca D'Agua</label>
-							<select  class="form-control" name="marca_dagua" id="">
-								<option value="Sim" <?php if($marca_dagua == 'Sim'){echo 'selected';} ?>>Sim</option>
-								<option value="Não" <?php if($marca_dagua == 'Não'){echo 'selected';} ?>>Não</option>
+							<select class="form-control" name="marca_dagua" id="">
+								<option value="Sim" <?php if ($marca_dagua == 'Sim') {
+														echo 'selected';
+													} ?>>Sim</option>
+								<option value="Não" <?php if ($marca_dagua == 'Não') {
+														echo 'selected';
+													} ?>>Não</option>
 							</select>
 						</div>
 					</div>

@@ -58,7 +58,7 @@ $query->execute();
 
 echo 'Salvo com Sucesso';
 
-if($atendimento == 'Sim' and $id == "" and $token_sistema != ""){
+if($atendimento == 'Sim' and $id == ""){
     //envio api whatsapp
 	
 		$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);

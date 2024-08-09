@@ -20,14 +20,14 @@ $res123 = json_decode($result);
 $erro = $res123->erro;
 
 if ($erro == true) {
-  $status_envio = 'true';
+  $status_envio = 'Dados de acesso enviados com Sucesso';
 } else {
-  $status_envio = 'false';
+  $status_envio = 'Falha ao enviar a mensagem para o funcionario';
 }
 // Fim da Verificação de Envio
 
 //Retorno Completo do Status
 
-// echo $status_envio;
+ echo $status_envio;
 
 ?>
