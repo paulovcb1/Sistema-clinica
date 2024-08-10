@@ -2,45 +2,48 @@
 
 $tabela = 'convenios';
 require_once("../../../conexao.php");
-$query = $pdo ->query("SELECT * FROM $tabela order by id desc");
+$query = $pdo->query("SELECT * FROM $tabela order by id desc");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
-$linhas = @count ($res);
+$linhas = @count($res);
 if ($linhas > 0) {
-echo <<<HTML
+    echo <<<HTML
 <small>
 	<table class="table table-hover" id="tabela">
 	<thead> 
 	<tr> 
 	<th>Nome</th> 
-	<th>Pacientes</th>
-	<th>Comissão %</th>
+	<th style="text-align: left">Pacientes</th>
+	<th>Telefones</th>
+	<th style="text-align: left">Comissão %</th>
 	<th>Ações</th>
 	</tr> 
 	</thead> 
 	<tbody>	
 HTML;
 
-for ($i = 0; $i < $linhas; $i++) {
-    $id = $res[$i]['id'];
-    $nome = $res[$i]['nome'];
-    $comissao = $res[$i]['comissao'];
+    for ($i = 0; $i < $linhas; $i++) {
+        $id = $res[$i]['id'];
+        $nome = $res[$i]['nome'];
+        $comissao = $res[$i]['comissao'];
+        $telefone = $res[$i]['telefone'];
 
-    $query2 = $pdo ->query("SELECT * FROM pacientes where convenio = '$id'");
-    $res2 = $query2->fetchall(PDO::FETCH_ASSOC);
-    $total_acessos = @count ($res2);
+        $query2 = $pdo->query("SELECT * FROM pacientes where convenio = '$id'");
+        $res2 = $query2->fetchall(PDO::FETCH_ASSOC);
+        $total_acessos = @count($res2);
 
 
 
-echo <<<HTML
+        echo <<<HTML
     <tr>
         <td>
-            <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
+            <input  type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
             {$nome}</td>
-        <td class="esc">{$total_acessos}</td>
-        <td class="esc">{$comissao}</td>
+        <td style="text-align: left" class="esc">{$total_acessos}</td>
+        <td class="esc">{$telefone}</td>
+        <td style="text-align: left" class="esc">{$comissao}</td>
         <td>
         <big>
-            <a href="#" onclick="editar('{$id}','{$nome}','{$comissao}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
+            <a href="#" onclick="editar('{$id}','{$nome}','{$comissao}','{$telefone}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>
         </big>   
 
             <li class="dropdown head-dpdn2" style="display: inline-block;">
@@ -58,10 +61,9 @@ echo <<<HTML
         </td>
     </tr>
 HTML;
+    }
 
-}
-
-echo <<<HTML
+    echo <<<HTML
     </tbody>
         <small>
             <div align="center" id="mensagem-excluir">
@@ -71,7 +73,6 @@ echo <<<HTML
     </table>
     
 HTML;
-
 } else {
     echo 'Nenhum Registro Encontrado!';
 }
@@ -80,75 +81,72 @@ HTML;
 
 <!-- DATA TABLE CONFERIR SEMPRE ERROS NELA POIS E RECORRENTE -->
 <script type="text/javascript">
-                var table = new DataTable('#tabela', {
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
-                }, "ordering": false, "stateSave": true
-            });
-            </script>
+    var table = new DataTable('#tabela', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/2.1.2/i18n/pt-BR.json',
+        },
+        "ordering": false,
+        "stateSave": true
+    });
+</script>
 
-    <script>
-        function editar (id, nome, comissao){
-            $('#mensagem').text('');
-            $('#titulo_inserir').text('Editar Registro');
+<script>
+    function editar(id, nome, comissao, telefone) {
+        $('#mensagem').text('');
+        $('#titulo_inserir').text('Editar Registro');
 
-            $('#id').val(id);
-            $('#nome').val(nome);
-            $('#comissao').val(comissao);
+        $('#id').val(id);
+        $('#nome').val(nome);
+        $('#comissao').val(comissao);
+        $('#telefone').val(telefone);
 
-            
 
-            $('#modalForm').modal('show');
+
+        $('#modalForm').modal('show');
+    }
+
+
+    function limparCampos() {
+        $('#id').val('');
+        $('#nome').val('');
+        $('#comissao').val('');
+        $('#telefone').val('');
+
+
+        $('#ids').val('');
+        $('#btn-deletar').hide();
+    }
+
+    function selecionar(id) {
+
+        var ids = $('#ids').val();
+
+        if ($('#seletor-' + id).is(":checked") == true) {
+            var novo_id = ids + id + '-';
+            $('#ids').val(novo_id);
+        } else {
+            var retirar = ids.replace(id + '-', '');
+            $('#ids').val(retirar);
         }
-    
-
-        function limparCampos(){
-            $('#id').val('');
-            $('#nome').val('');
-            $('#comissao').val('');
-            $('#email').val('');
-            $('#telefone').val('');
-            $('#endereco').val('');
-            $('#ids').val('');
-            $('#btn-deletar').hide();
-        }
-
-        function selecionar(id) {
-
-            var ids = $('#ids').val();
-
-            if($('#seletor-'+id).is(":checked") == true){
-			var novo_id = ids + id + '-';
-			$('#ids').val(novo_id);
-		}else{
-			var retirar = ids.replace(id + '-', '');
-			$('#ids').val(retirar);
-		}
 
         var ids_final = $('#ids').val();
 
-        if(ids_final != ""){
+        if (ids_final != "") {
             $('#btn-deletar').show();
-        }else {
-            $('#btn-deletar').hide(); 
+        } else {
+            $('#btn-deletar').hide();
         }
 
+    }
+
+
+    function excluirSel(id) {
+        var ids = $('#ids').val();
+        var id = ids.split("-");
+        for (i = 0; i < id.length - 1; i++) {
+            excluir(id[i])
         }
 
-
-        function excluirSel(id){
-            var ids = $('#ids').val();
-            var id = ids.split("-");
-            for (i = 0 ; i < id.length - 1; i++){
-                    excluir(id[i])
-            }
-
-            limparCampos();
-        }
-        
-    </script>
-
-
-
-
-
+        limparCampos();
+    }
+</script>

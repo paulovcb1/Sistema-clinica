@@ -2,36 +2,36 @@
 $pag = 'convenios';
 
 
-if(@$convenios == 'ocultar'){
-	echo"<script>window.location='../index.php'</script>";
+if (@$convenios == 'ocultar') {
+	echo "<script>window.location='../index.php'</script>";
 	exit();
 }
 ?>
 
 <div class="main-page margin-mobile">
-<a onclick="inserir()" class="btn btn-primary">
-<i class="fa-solid fa-plus"></i>
-	Convênio
-</a>
+	<a onclick="inserir()" class="btn btn-primary">
+		<i class="fa-solid fa-plus"></i>
+		Convênio
+	</a>
 
-<li class="dropdown head-dpdn2" style="display: inline-block;">
+	<li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none">
-		<i class="fa-solid fa-trash"></i>
+			<i class="fa-solid fa-trash"></i>
 			DELETAR
 		</a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <div class="notification_desc2">
-                        <p>Tem certeza que deseja excluir? <a href="#" onclick="excluirSel()"><span class="text-danger">Sim</span></a></p>
-                        </div>
-                    </li>										
-                </ul>
-            </li>
+		<ul class="dropdown-menu">
+			<li>
+				<div class="notification_desc2">
+					<p>Tem certeza que deseja excluir? <a href="#" onclick="excluirSel()"><span class="text-danger">Sim</span></a></p>
+				</div>
+			</li>
+		</ul>
+	</li>
 
 
-<div class="bs-example widget-shadow" style="padding:15px" id="listar">
+	<div class="bs-example widget-shadow" style="padding:15px" id="listar">
 
-</div>
+	</div>
 </div>
 
 <input type="hidden" id="ids">
@@ -47,37 +47,46 @@ if(@$convenios == 'ocultar'){
 				</button>
 			</div>
 			<form id="form">
-			<div class="modal-body">
-				
+				<div class="modal-body">
+
+
+
+					<div class="row">
+						<div class="col-md-6">
+							<label>Nome do Convênio</label>
+							<input type="text" class="form-control" id="convenio" name="convenio" placeholder="Nome do Convênio" required>
+						</div>
+
+						<div class="col-md-6">
+							<label>Telefone </label>
+							<input type="text" class="form-control" id="telefone" name="telefone" placeholder="Telefone do Convênio" required>
+						</div>
+					</div>
 
 					<div class="row">
 
-						<div class="col-md-5">							
-								<label>Convênio</label>
-								<input type="text" class="form-control" id="convenio" name="convenio" placeholder="Nome do Convênio" required>							
+						<div class="col-md-6">
+							<label>Comissão %</label>
+							<input type="number" class="form-control" id="comissao" name="comissao" placeholder="Comissao a receber do convenio" required>
 						</div>
 
-						<div class="col-md-4">							
-								<label>Comissão %</label>
-								<input type="number" class="form-control" id="comissao" name="comissao" placeholder="Nome do Convênio" required>							
-						</div>
-
-						<div class="col-md-2" style="margin-top: 22px">							
-								<button type="submit" class="btn btn-primary" >Salvar</button>							
-						</div>
-
-                        
 					</div>
 
 
 
-                    <input type="hidden" class="form-control" id="id" name="id">		
+					<input type="hidden" class="form-control" id="id" name="id">
 
 
-				<br>
-				<small><div id="mensagem" align="center"></div></small>
-			</div>
-			
+					<br>
+					<small>
+						<div id="mensagem" align="center"></div>
+					</small>
+				</div>
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+
 			</form>
 		</div>
 	</div>
@@ -88,6 +97,6 @@ if(@$convenios == 'ocultar'){
 
 
 <script type="text/javascript">
-    var pag = "<?=$pag?>"
+	var pag = "<?= $pag ?>"
 </script>
 <script src="js/ajax.js"></script>

@@ -16,19 +16,31 @@ $frequencia = $_POST['frequencia'];
 $saida = $_POST['saida'];
 $obs = $_POST['obs'];
 $id = $_POST['id'];
+$convenio = $_POST['convenio'];
 
 
-if($descricao == "" and $cliente == ""){
-	echo 'Escolha um Cliente ou insira uma descrição!';
+if($descricao == "" and $cliente == "" and $convenio == ""){
+	echo 'Escolha um Cliente ou um Convênio ou insira uma descrição!';
 	exit();
 }
 
 
 if($descricao == "" and $cliente != ""){
-	$query = $pdo->query("SELECT * FROM clientes where id = '$cliente'");
+	$query = $pdo->query("SELECT * FROM pacientes where id = '$cliente'");
 	$res = $query->fetchAll(PDO::FETCH_ASSOC);
 	$nome_cliente = $res[0]['nome'];
 	$descricao = $nome_cliente;
+}
+if($convenio != "" and $cliente != ""){
+	echo "Selecione um Convênio ou um paciente!";
+	exit();
+}
+
+if($descricao == "" and $convenio != ""){
+	$query = $pdo->query("SELECT * FROM convenios where id = '$convenio'");
+	$res = $query->fetchAll(PDO::FETCH_ASSOC);
+	$nome_convenio = $res[0]['nome'];
+	$descricao = $nome_convenio;
 }
 
 
@@ -82,12 +94,10 @@ if(strtotime($data_pgto) <= strtotime($data_atual) and $data_pgto != "" and $dat
 
 
 if($id == ""){
-	$query = $pdo->prepare("INSERT INTO $tabela SET descricao = :descricao, cliente = '$cliente', valor = :valor, data_venc = '$data_venc', data_pgto = '$data_pag', frequencia = '$frequencia', saida = '$saida', data_lanc = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$usuario_pgto', arquivo = '$foto', pago = '$pago', referencia = 'Conta', obs = :obs");
-	$acao = 'inserção';
+	$query = $pdo->prepare("INSERT INTO $tabela SET descricao = :descricao, cliente = '$cliente', valor = :valor, data_venc = '$data_venc', data_pgto = '$data_pag', frequencia = '$frequencia', saida = '$saida', data_lanc = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$usuario_pgto', arquivo = '$foto', pago = '$pago', referencia = 'Conta', obs = :obs , convenio = '$convenio' ");
 
 }else{
-	$query = $pdo->prepare("UPDATE $tabela SET descricao = :descricao, cliente = '$cliente', valor = :valor, data_venc = '$data_venc', frequencia = '$frequencia', saida = '$saida', data_lanc = curDate(), usuario_lanc = '$id_usuario', arquivo = '$foto', obs = :obs where id = '$id'");
-	$acao = 'edição';
+	$query = $pdo->prepare("UPDATE $tabela SET descricao = :descricao, cliente = '$cliente', valor = :valor, data_venc = '$data_venc', frequencia = '$frequencia', saida = '$saida', data_lanc = curDate(), usuario_lanc = '$id_usuario', arquivo = '$foto', obs = :obs, convenio = '$convenio' where id = '$id'");
 	
 }
 

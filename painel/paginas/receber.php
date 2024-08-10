@@ -159,7 +159,7 @@ if (@$receber == 'ocultar') {
 
 						<div class="col-md-3">
 							<div class="form-group">
-								<label>Saída</label>
+								<label> Entrada</label>
 								<select class="form-control sel2" name="saida" id="saida" style="width:100%;">
 									<?php
 									$query = $pdo->query("SELECT * FROM formas_pgto order by id asc");
@@ -195,7 +195,7 @@ if (@$receber == 'ocultar') {
 										}
 
 									?>
-										<option value="<?php echo $res[$i]['id'] ?>"><?php echo $res[$i]['nome'] ?></option>
+										<option value="<?php echo $res[$i]['nome'] ?>"><?php echo $res[$i]['nome'] ?></option>
 
 									<?php } ?>
 
@@ -220,12 +220,12 @@ if (@$receber == 'ocultar') {
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Foto</label>
-								<input type="file" name="arquivo" onChange="carregarImg();" id="arquivo">
+								<input class="form-control" type="file" name="arquivo" onChange="carregarImg();" id="arquivo">
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div id="divImg">
-								<img src="../images/sem-foto.jpg" width="100px" id="target">
+								<img src="../images/sem-foto.jpg" width="60px" id="target">
 							</div>
 						</div>
 
@@ -345,7 +345,7 @@ if (@$receber == 'ocultar') {
 
 				<div class="row" style="border-bottom: 1px solid #cac7c7;">
 					<div class="col-md-6">
-						<span><b>Saída: </b></span>
+						<span><b>Entrada: </b></span>
 						<span id="saida_mostrar"></span>
 					</div>
 					<div class="col-md-6">
@@ -1074,7 +1074,7 @@ if (@$receber == 'ocultar') {
 			var formData = new FormData(this);
 
 			$.ajax({
-				url: 'paginas/' + pag + "/inserir.php",
+				url: 'paginas/' + pag + "/salvar.php",
 				type: 'POST',
 				data: formData,
 

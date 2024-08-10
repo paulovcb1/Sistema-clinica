@@ -12,8 +12,8 @@ echo <<<HTML
         <thead> 
             <tr> 
                 <th>Nome</th> 
-                <th>Chave</th>
-                <th>Grupo</th>
+                <th style="text-align: left">Chave</th>
+                <th style="text-align: left">Grupo</th>
                 <th>Ações</th>
             </tr> 
         </thead> 
@@ -46,8 +46,8 @@ echo <<<HTML
         <td>
             <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
             {$nome}</td>
-        <td class="esc">{$grupo}</td>
-        <td class="esc">{$chave}</td>
+        <td style="text-align: left" class="esc">{$chave}</td>
+        <td style="text-align: left"  class="esc">{$grupo}</td>
         <td>
         <big>
             <a href="#" onclick="editar('{$id}','{$nome}','{$chave}','{$grupo}','{$pagina}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>

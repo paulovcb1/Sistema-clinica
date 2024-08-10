@@ -13,7 +13,7 @@ echo <<<HTML
     <thead>
 	<tr> 
 	<th>Nome</th>	
-	<th class="esc">Valor</th>	
+	<th style="text-align: left" class="esc">Valor</th>	
 	<th class="esc">Tempo</th>	
 	<th class="esc">Convênio</th>	
 	<th>Ações</th>
@@ -58,7 +58,7 @@ echo <<<HTML
         <td>
             <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
             {$nome}</td>
-        <td class="esc">{$valor}</td>
+        <td style="text-align: left" class="esc">{$valor}</td>
         <td class="esc">{$tempo} Minutos</td>
         <td class="esc" style="color:{$classe_convenio}">{$convenio}</td>
         <td>

@@ -12,7 +12,7 @@ echo <<<HTML
 	<thead> 
 	<tr> 
 	<th>Frequência</th> 
-	<th>Dias</th>
+	<th style="text-align: left">Dias</th>
 	<th>Ações</th>
 	</tr> 
 	</thead> 
@@ -31,7 +31,7 @@ echo <<<HTML
         <td>
             <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
             {$frequencia}</td>
-        <td class="esc">{$dias}</td>
+        <td style="text-align: left" class="esc">{$dias}</td>
         <td>
         <big>
             <a href="#" onclick="editar('{$id}','{$frequencia}','{$dias}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a>

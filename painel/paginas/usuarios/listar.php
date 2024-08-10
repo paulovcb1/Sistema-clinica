@@ -17,7 +17,7 @@ echo <<<HTML
 	<th class="esc">Email</th>	
 	<th class="esc">Nivel / Cargo</th>	
 	<th class="esc">Atendimento</th>	
-	<th class="esc">Comissão</th>	
+	<th style="text-align: left" class="esc">Comissão</th>	
 	<th class="esc">Foto</th>	
 	<th>Ações</th>
 	</tr> 
@@ -69,7 +69,7 @@ echo <<<HTML
         <td class="esc">{$email}</td>
         <td class="esc">{$nivel}</td>
         <td class="esc">{$atendimento}</td>
-        <td class="esc">{$comissao}%</td>
+        <td style="text-align: left" class="esc">{$comissao}%</td>
         <td class="esc"><img src="images/perfil/{$foto}" width="20px" alt="Foto"></td>
         <td>
         <big>
