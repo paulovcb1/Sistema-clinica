@@ -76,6 +76,8 @@ HTML;
                 <big>
                     <a href="#" onclick="mostrar('{$nome}','{$telefone}','{$endereco}','{$data_nasc_formatada}','{$data_cad_formatada}','{$cpf}','{$convenio}','{$profissao}','{$sexo}','{$obs}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a>
                 </big>
+
+                <big><a href="#" onclick="arquivo('{$id}', '{$nome}')" title="Inserir / Ver Arquivos"><i class="fa fa-file-o " style="color:#22146e"></i></a></big>
             </td>
         </tr>
 HTML;
@@ -175,4 +177,12 @@ HTML;
         }
         limparCampos();
     }
+
+    function arquivo(id, nome) {
+		$('#id-arquivo').val(id);
+		$('#nome-arquivo').text(nome);
+		$('#modalArquivos').modal('show');
+		$('#mensagem-arquivo').text('');
+		listarArquivos();
+	}
 </script>

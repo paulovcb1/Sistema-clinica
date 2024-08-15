@@ -57,6 +57,7 @@ HTML;
                     </li>										
                 </ul>
             </li>
+            <big><a href="#" onclick="arquivo('{$id}', '{$nome}')" title="Inserir / Ver Arquivos"><i class="fa fa-file-o " style="color:#22146e"></i></a></big>
 
         </td>
     </tr>
@@ -149,4 +150,13 @@ HTML;
 
         limparCampos();
     }
+
+
+    function arquivo(id, nome) {
+		$('#id-arquivo').val(id);
+		$('#nome-arquivo').text(nome);
+		$('#modalArquivos').modal('show');
+		$('#mensagem-arquivo').text('');
+		listarArquivos();
+	}
 </script>

@@ -1,6 +1,6 @@
 <?php
 require_once("../../../conexao.php");
-$pagina = 'receber';
+$pagina = 'pagar';
 $data_atual = date('Y-m-d');
 
 $total_valor = 0;
@@ -61,7 +61,7 @@ if ($total_reg > 0) {
 			<tr style="text-align: left"> 				
 				<th>Descrição</th>
 				<th style="text-align: left" class="esc">Valor</th> 
-				<th class="esc">Paciente / Convênio</th> 
+				<th class="esc">Funcionário</th> 
 				<th class="esc">Vencimento</th> 
 				<th class="esc">Frequência</th>
 				<th class="esc">Entrada</th>
@@ -76,7 +76,7 @@ HTML;
 		}
 		$id = $res[$i]['id'];
 		$descricao = $res[$i]['descricao'];
-		$cliente = $res[$i]['cliente'];
+		$funcionario = $res[$i]['funcionario'];
 		$valor = $res[$i]['valor'];
 		$data_lanc = $res[$i]['data_lanc'];
 		$data_venc = $res[$i]['data_venc'];
@@ -89,7 +89,6 @@ HTML;
 		$pago = $res[$i]['pago'];
 		$obs = $res[$i]['obs'];
 		$referencia = $res[$i]['referencia'];
-		$convenio = $res[$i]['convenio'];
 
 		//extensão do arquivo
 		$ext = pathinfo($arquivo, PATHINFO_EXTENSION);
@@ -139,21 +138,15 @@ HTML;
 		$pix_pessoa = 'Sem Registro';
 		$tel_pessoa = 'Sem Registro';
 
-		$query2 = $pdo->query("SELECT * FROM pacientes where id = '$cliente'");
+		$query2 = $pdo->query("SELECT * FROM usuarios where id = '$funcionario'");
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 		if (@count($res2) > 0) {
 			$nome_pessoa = $res2[0]['nome'];
-			$tipo_pessoa = 'Cliente';
+			$tipo_pessoa = 'Funcionário';
 			$tel_pessoa = $res2[0]['telefone'];
 		}
 
-		$query2 = $pdo->query("SELECT * FROM convenios where id = '$convenio'");
-		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-		if (@count($res2) > 0) {
-			$nome_pessoa = $res2[0]['nome'];
-			$tipo_pessoa = 'Paciente';
-			$tel_pessoa = $res2[0]['telefone'];
-		}
+
 
 
 		if ($pago == 'Sim') {
@@ -191,7 +184,7 @@ HTML;
 				<td class="esc">{$saida}</td>
 				<td><a href="images/contas/{$arquivo}" target="_blank"><img src="images/contas/{$tumb_arquivo}" width="30px" height="30px"></a></td>
 				<td>
-					<big><a class="{$ocultar}" href="#" onclick="editar('{$id}', '{$descricao}', '{$cliente}','{$valor}','{$data_venc}','{$frequencia}','{$saida}','{$arquivo}', '{$obs}','{$data_pgto}' ,'{$convenio}')" title="Editar Dados"><i class="fa-regular fa-pen-to-square text-primary"></i></a></big>
+					<big><a class="{$ocultar}" href="#" onclick="editar('{$id}', '{$descricao}', '{$funcionario}','{$valor}','{$data_venc}','{$frequencia}','{$saida}','{$arquivo}', '{$obs}','{$data_pgto}')" title="Editar Dados"><i class="fa-regular fa-pen-to-square text-primary"></i></a></big>
 
 					<big><a href="#" onclick="mostrar('{$id}', '{$descricao}', '{$nome_pessoa}', '{$tipo_pessoa}','{$valorF}','{$data_lancF}','{$data_vencF}','{$data_pgtoF}','{$nome_usu_lanc}','{$nome_usu_pgto}','{$nome_frequencia}','{$saida}','{$arquivo}','{$pago}','{$obs}','{$pix_pessoa}','{$tel_pessoa}')" title="Ver Dados"><i class="fa fa-info-circle text-secondary"></i></a></big>
 
@@ -246,28 +239,24 @@ HTML;
 
 
 
-	function editar(id, descricao, cliente, valor, data_venc, frequencia, saida, arquivo, obs, data_pgto, convenio) {
+	function editar(id, descricao, funcionario, valor, data_venc, frequencia, saida, arquivo, obs, data_pgto, ) {
 
-		if (cliente == 0) {
-			cliente = "";
+		if (funcionario == 0) {
+			funcionario = "";
 		}
 
-		if (convenio == 0) {
-			convenio = "";
-		}
-
+	
 
 
 		$('#id').val(id);
 		$('#descricao').val(descricao);
-		$('#cliente').val(cliente).change();
+		$('#funcionario').val(funcionario).change();
 		$('#valor').val(valor);
 		$('#data_venc').val(data_venc);
 		$('#data_pgto').val(data_pgto);
 		$('#frequencia').val(frequencia).change();
 		$('#saida').val(saida).change();
-		$('#convenio').val(convenio).change();
-
+ 
 		$('#obs').val(obs);
 
 		$('#arquivo').val('');
@@ -353,8 +342,7 @@ HTML;
 		$('#arquivo').val('');
 		$('#target').attr('src', 'images/contas/sem-foto.png');
 		$('#obs').val('');
-		$('#cliente').val('').change();
-		$('#convenio').val('').change();
+		$('#funcionario').val('').change();
 
 	}
 

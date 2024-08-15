@@ -1,8 +1,8 @@
 <?php
-$pag = 'receber';
+$pag = 'pagar';
 
 //verificar se ele tem a permissão de estar nessa página
-if (@$receber == 'ocultar') {
+if (@$pagar == 'ocultar') {
 	echo "<script>window.location='../index.php'</script>";
 	exit();
 }
@@ -13,7 +13,7 @@ if (@$receber == 'ocultar') {
 	<div class="col-md-10">
 
 		<div style="float:left; margin-right:35px">
-			<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i>Receber</button>
+			<button onclick="inserir()" type="button" class="btn btn-primary btn-flat btn-pri"><i class="fa fa-plus" aria-hidden="true"></i>Pagar</button>
 		</div>
 
 		<div class="esc" style="float:left; margin-right:10px"><span><small><i title="Data de Vencimento Inicial" class="fa fa-calendar-o"></i></small></span>
@@ -50,7 +50,7 @@ if (@$receber == 'ocultar') {
 	</div>
 
 	<div align="right" class="col-md-2">
-		<small><i class="fa fa-usd text-sucess"></i> <span class="text-dark">Total: <span class="text-sucess" id="total_itens"></span></span></small>
+		<small><i class="fa fa-usd text-danger"></i> <span class="text-dark">Total: <span class="text-danger" id="total_itens"></span></span></small>
 	</div>
 </div>
 
@@ -92,13 +92,13 @@ if (@$receber == 'ocultar') {
 
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Paciente</label>
-								<select class="form-control sel2" name="cliente" id="cliente" style="width:100%;">
+								<label>Funcionário</label>
+								<select class="form-control sel2" name="funcionario" id="funcionario" style="width:100%;">
 
-									<option value="">Selecionar Paciente</option>
+									<option value="">Selecionar Funcionário</option>
 
 									<?php
-									$query = $pdo->query("SELECT * FROM pacientes order by nome asc");
+									$query = $pdo->query("SELECT * FROM usuarios where nivel != 'Administrador' order by nome asc");
 									$res = $query->fetchAll(PDO::FETCH_ASSOC);
 									for ($i = 0; $i < @count($res); $i++) {
 										foreach ($res[$i] as $key => $value) {
@@ -181,31 +181,8 @@ if (@$receber == 'ocultar') {
 					</div>
 
 					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label> Convênio</label>
-								<select class="form-control sel2" name="convenio" id="convenio" style="width:100%;">
 
-									<option value="">Selecionar Convênio (Caso Haja)</option>
-									<?php
-									$query = $pdo->query("SELECT * FROM convenios order by id asc");
-									$res = $query->fetchAll(PDO::FETCH_ASSOC);
-									for ($i = 0; $i < @count($res); $i++) {
-										foreach ($res[$i] as $key => $value) {
-										}
-
-									?>
-										<option value="<?php echo $res[$i]['id'] ?>"><?php echo $res[$i]['nome'] ?></option>
-
-									<?php } ?>
-
-								</select>
-							</div>
-
-						</div>
-
-
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="form-group">
 								<label>OBS</label>
 								<textarea maxlength="255" type="text" class="form-control" name="obs" id="obs"> </textarea>

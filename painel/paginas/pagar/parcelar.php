@@ -1,5 +1,5 @@
 <?php 
-$tabela = 'receber';
+$tabela = 'pagar';
 require_once("../../../conexao.php");
 
 @session_start();
@@ -14,7 +14,7 @@ $query = $pdo->query("SELECT * FROM $tabela where id = '$id'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
 $descricao = $res[0]['descricao'];
-$cliente = $res[0]['cliente'];
+$cliente = $res[0]['funcionario'];
 $valor = $res[0]['valor'];
 $data_lanc = $res[0]['data_lanc'];
 $data_venc = $res[0]['data_venc'];
@@ -26,7 +26,6 @@ $saida = $res[0]['saida'];
 $arquivo = $res[0]['arquivo'];
 $pago = $res[0]['pago'];
 $referencia = $res[0]['referencia'];
-$convenio = $res[0]['convenio'];
 
 for($i=1; $i <= $qtd_parcelas; $i++){
 
@@ -77,7 +76,7 @@ for($i=1; $i <= $qtd_parcelas; $i++){
 		}
 
 
-	$pdo->query("INSERT INTO $tabela set descricao = '$nova_descricao', cliente = '$cliente', valor = '$novo_valor', usuario_lanc = '$id_usuario', data_lanc = curDate(), data_venc = '$novo_vencimento', frequencia = '$frequencia', saida = '$saida', arquivo = '$arquivo', pago = 'Não', referencia = '$referencia', convenio = '$convenio' ");
+	$pdo->query("INSERT INTO $tabela set descricao = '$nova_descricao', funcionario = '$funcionario', valor = '$novo_valor', usuario_lanc = '$id_usuario', data_lanc = curDate(), data_venc = '$novo_vencimento', frequencia = '$frequencia', saida = '$saida', arquivo = '$arquivo', pago = 'Não', referencia = '$referencia', convenio = '$convenio' ");
 
 }
 
