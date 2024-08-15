@@ -234,8 +234,9 @@ if ($linhas > 0) {
 									<i class="fa fa-angle-left pull-right"></i>
 								</a>
 								<ul class="treeview-menu">
-									<li class="<?php echo $receber ?>"><a href="receber"><i class="fa fa-angle-right"></i> Recebimentos</a></li>
-									<li class="<?php echo $pagar ?>"><a href="pagar"><i class="fa fa-angle-right"></i> Despesas / Pagamentos</a></li>
+									<li class="<?php echo $receber ?>"><a href="receber"><i class="fa fa-angle-right"></i> Contas à receber</a></li>
+									<li class="<?php echo $pagar ?>"><a href="pagar"><i class="fa fa-angle-right"></i> Contas à pagar</a></li>
+									<li class="<?php echo $comissoes ?>"><a href="comissoes"><i class="fa fa-angle-right"></i> Comissões</a></li>
 								</ul>
 							</li>
 
@@ -246,6 +247,12 @@ if ($linhas > 0) {
 								<li class="treeview <?php echo $horarios ?>">
 									<a href="horarios">
 										<i class="fa fa-clock"></i> <span> Dias / Horarios</span>
+									</a>
+								</li>
+
+								<li class="treeview <?php echo $minhas_comissoes ?>">
+									<a href="minhas_comissoes">
+										<i class="fa fa-clock"></i> <span> Minhas comissões</span>
 									</a>
 								</li>
 							<?php } ?>

@@ -7,22 +7,15 @@ $id_usuario = @$_SESSION['id'];
 $id = $_POST['id-arquivo'];
 $nome = $_POST['nome-arq'];
 
-$query = $pdo->query("SELECT * FROM receber where id = '$id'");
+$query = $pdo->query("SELECT * FROM pagar where id = '$id'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 if(@count($res) > 0){	
-	$cliente = $res[0]['cliente'];
+	$cliente = $res[0]['funcionario'];
 }else{	
 	$cliente = "0";
 }
 
 
-$query = $pdo->query("SELECT * FROM receber where id = '$id'");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-if(@count($res) > 0){	
-	$convenio = $res[0]['convenio'];
-}else{	
-	$convenio = "0";
-}
 
 
 //SCRIPT PARA SUBIR FOTO NO SERVIDOR
@@ -51,25 +44,19 @@ if(@$_FILES['arquivo_conta']['name'] != ""){
 	exit();
 }
 
-$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome,  data_cad = curDate(), usuario = '$id_usuario', arquivo = '$foto', registro = 'Conta à Receber', id_reg = '$id'");
+$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome,  data_cad = curDate(), usuario = '$id_usuario', arquivo = '$foto', registro = 'Conta à Pagar', id_reg = '$id'");
 
 $query->bindValue(":nome", "$nome");
 $query->execute();
 
 
 if($cliente != "0"){
-	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome,  data_cad = curDate(), usuario = '$id_usuario', arquivo = '$foto', registro = 'Cliente', id_reg = '$cliente'");
+	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome,  data_cad = curDate(), usuario = '$id_usuario', arquivo = '$foto', registro = 'Funcionário', id_reg = '$cliente'");
 	$query->bindValue(":nome", "$nome");
 	$query->execute();
 	
 }
 
-if($convenio != "0"){
-	$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome,  data_cad = curDate(), usuario = '$id_usuario', arquivo = '$foto', registro = 'convenio', id_reg = '$convenio'");
-	$query->bindValue(":nome", "$nome");
-	$query->execute();
-	
-}
 
 
 

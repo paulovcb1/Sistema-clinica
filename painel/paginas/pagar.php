@@ -55,6 +55,7 @@ if (@$pagar == 'ocultar') {
 </div>
 
 
+
 <div class="bs-example widget-shadow" style="padding:15px" id="listar">
 
 </div>
@@ -840,9 +841,9 @@ if (@$pagar == 'ocultar') {
 		function listarBusca(alterou_data) {
 
 			var dataInicial = $('#data-inicial').val();
-				var dataFinal = $('#data-final').val();
-				var status = $('#status-busca').val();
-				
+			var dataFinal = $('#data-final').val();
+			var status = $('#status-busca').val();
+
 			$.ajax({
 				url: 'paginas/' + pag + "/listar.php",
 				method: 'POST',

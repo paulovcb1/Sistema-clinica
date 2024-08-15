@@ -84,7 +84,7 @@ $data_hoje = utf8_encode(strftime('%A, %d de %B de %Y', strtotime('today')));
 
 					</td>
 					<td style="width: 40%; text-align: right; font-size: 9px;padding-right: 10px;">
-						<b><big>RELATÓRIO DE PRODUTOS</big></b><br>ASLDJKFHAKSJDFH<br> <?php echo mb_strtoupper($data_hoje) ?>
+						<b><big>RELATÓRIO DE PRODUTOS</big></b><br><br> <?php echo mb_strtoupper($data_hoje) ?>
 					</td>
 				</tr>
 			</table>

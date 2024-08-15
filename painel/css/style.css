@@ -8514,3 +8514,15 @@ h4.asd label {
   margin-right: 15px;
 
 }
+
+.link-botao{  
+  display:inline;
+  background:transparent;   
+  border: none;
+  cursor: pointer;
+  
+}
+
+.link-botao:hover{
+ text-decoration: underline;
+}
