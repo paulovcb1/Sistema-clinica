@@ -43,24 +43,17 @@ if($filtro_lancamento != ""){
 		}else{
 			$filtro_lancamentoF = 'Contas / Despesas';
 		}
-	}else if($filtro_lancamento == 'Venda'){
-		$filtro_tipoF = 'VENDAS';
-		$classe_entradas = '';
 
-	}else if($filtro_lancamento == 'Cancelamento'){
-		$filtro_tipoF = 'VENDAS CANCELADAS';
-		$classe_entradas = '';
-
-	}else if($filtro_lancamento == 'Compra'){
-		$filtro_tipoF = 'COMPRAS';
+	}else if($filtro_lancamento == 'Pagamento'){
+		$filtro_tipoF = 'PAGAMENTOS';
 		$classe_entradas = '';
 	
 	}else if($filtro_lancamento == 'Comissão'){
 		$filtro_tipoF = 'COMISSÕES';
 		$classe_entradas = '';
 	
-	}else if($filtro_lancamento == 'Serviço'){
-		$filtro_tipoF = 'SERVIÇOS';
+	}else if($filtro_lancamento == 'Procedimento'){
+		$filtro_tipoF = 'EXAMES E CONSULTAS';
 		$classe_entradas = '';
 	}
 	
@@ -117,17 +110,17 @@ body {font-family: 'Tw Cen MT', sans-serif;}
 <body>
 <?php 
 if($marca_dagua == 'Sim'){ ?>
-<img class="marca" src="<?php echo $url_sistema ?>img/logo.jpg">	
+<img class="marca" src="<?php echo $url_sistema ?>img/foto.jpg">	
 <?php } ?>
 
 
 <div id="header" >
 
-	<div style="border-style: solid; font-size: 10px; height: 50px;">
-		<table style="width: 100%; border: 0px solid #ccc;">
-			<tr>
-				<td style="border: 1px; solid #000; width: 7%; text-align: left;">
-					<img style="margin-top: 7px; margin-left: 7px;" id="imag" src="<?php echo $url_sistema ?>img/logo.jpg" width="120px">
+	<div style="font-size: 10px; height: 50px;">
+		<table style="width: 100%; border: 0px solid #ccc; ">
+			<tr >
+				<td style="border: 1px; solid #000; width: 7%; text-align: left; ">
+					<img style="margin-top: -15px;  margin-left: 7px;" id="imag" src="<?php echo $url_sistema ?>img/foto.jpg" width="120px">
 				</td>
 				<td style="width: 30%; text-align: left; font-size: 13px;">
 					
@@ -135,7 +128,7 @@ if($marca_dagua == 'Sim'){ ?>
 				<td style="width: 1%; text-align: center; font-size: 13px;">
 				
 				</td>
-				<td style="width: 47%; text-align: right; font-size: 9px;padding-right: 10px;">
+				<td style="width: 47%; text-align: right; font-size: 9px; padding-right: 10px; ">
 						<b><big>RELATÓRIO DE <span style="color:<?php echo $classe_entradas ?>"><?php echo $filtro_tipoF ?> <?php if($filtro_lancamentoF != ""){ echo '('. mb_strtoupper($filtro_lancamentoF).')'; } ?></span></big></b><br> <?php echo mb_strtoupper($texto_filtro) ?> <br> <?php echo mb_strtoupper($data_hoje) ?>
 				</td>
 			</tr>		
@@ -176,7 +169,7 @@ if($marca_dagua == 'Sim'){ ?>
 
 
 
-		<table style="width: 100%; table-layout: fixed; font-size:7px; text-transform: uppercase;">
+		<table style="width: 100%; table-layout: fixed; font-size:8px; text-transform: uppercase;">
 			<thead>
 				<tbody>
 					<?php

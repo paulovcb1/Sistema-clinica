@@ -237,6 +237,8 @@ if ($linhas > 0) {
 									<li class="<?php echo $receber ?>"><a href="receber"><i class="fa fa-angle-right"></i> Contas à receber</a></li>
 									<li class="<?php echo $pagar ?>"><a href="pagar"><i class="fa fa-angle-right"></i> Contas à pagar</a></li>
 									<li class="<?php echo $comissoes ?>"><a href="comissoes"><i class="fa fa-angle-right"></i> Comissões</a></li>
+									<li class="<?php echo $rel_lucro ?>"><a href="" data-toggle="modal" data-target="#modalRelLucro"><i class="fa fa-angle-right"></i> Lucro</a></li>
+									<li class="<?php echo $rel_financeiro ?>"><a href="" data-toggle="modal" data-target="#modalRelFin"><i class="fa fa-angle-right"></i> Relatorios Financeiros</a></li>
 								</ul>
 							</li>
 
@@ -575,6 +577,118 @@ if ($linhas > 0) {
 	</div>
 </div>
 
+<!-- Modal Rel Financeiro -->
+<div class="modal fade" id="modalRelFin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">Relatório Financeiro</h4>
+				<button id="btn-fechar-rel" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form method="POST" action="rel/financeiro_class.php" target="_blank">
+			<div class="modal-body">	
+			<div class="row">
+				<div class="col-md-4">
+					<label>Data Inicial</label>
+					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
+				</div>
+
+				<div class="col-md-4">
+					<label>Data Final</label>
+					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
+				</div>
+
+				<div class="col-md-4">
+					<label>Filtro Data</label>
+					<select name="filtro_data" class="form-control">
+						<option value="data_lanc">Data de Lançamento</option>
+						<option value="data_venc">Data de Vencimento</option>
+						<option value="data_pgto">Data de Pagamento</option>
+					</select>
+				</div>
+			</div>		
+
+
+			<div class="row">				
+				<div class="col-md-4">
+					<label>Entradas / Saídas</label>
+					<select name="filtro_tipo" class="form-control">
+						<option value="receber">Entradas / Ganhos</option>
+						<option value="pagar">Saídas / Despesas</option>
+					</select>
+				</div>
+
+				<div class="col-md-4">
+					<label>Tipo Lançamento</label>
+					<select name="filtro_lancamento" class="form-control">
+						<option value="">Tudo</option>
+						<option value="Conta">Ganhos / Despesas</option>
+						<option value="Pagamento">Pagamentos</option>
+						<option value="Procedimento">Procedimentos</option>
+						<option value="Comissão">Comissões</option>
+					</select>
+				</div>
+				<div class="col-md-4">
+					<label>Pendentes / Pago</label>
+					<select name="filtro_pendentes" class="form-control">
+						<option value="">Tudo</option>
+						<option value="Não">Pendentes</option>
+						<option value="Sim">Pago</option>
+					</select>
+				</div>			
+			</div>		
+				
+						
+
+			</div>
+			<div class="modal-footer">       
+				<button type="submit" class="btn btn-primary">Gerar</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Rel Lucro -->
+<div class="modal fade" id="modalRelLucro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">Relatório de Lucro</h4>
+				<button id="btn-fechar-rel" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form method="POST" action="rel/lucro_class.php" target="_blank">
+			<div class="modal-body">	
+			<div class="row">
+				<div class="col-md-4">
+					<label>Data Inicial</label>
+					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
+				</div>
+
+				<div class="col-md-4">
+					<label>Data Final</label>
+					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
+				</div>
+
+				
+			</div>		
+
+
+								
+
+			</div>
+			<div class="modal-footer">       
+				<button type="submit" class="btn btn-primary">Gerar</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 
 
 
@@ -661,6 +775,7 @@ if ($linhas > 0) {
 		</div>
 	</div>
 </div>
+
 
 
 

@@ -25,7 +25,7 @@ if($descricao == "" and $funcionario == ""){
 
 
 if($descricao == "" and $funcionario != ""){
-	$query = $pdo->query("SELECT * FROM usuarios where id = '$cliente'");
+	$query = $pdo->query("SELECT * FROM usuarios where id = '$funcionario'");
 	$res = $query->fetchAll(PDO::FETCH_ASSOC);
 	$nome_cliente = $res[0]['nome'];
 	$descricao = $nome_cliente;
@@ -81,9 +81,14 @@ if(strtotime($data_pgto) <= strtotime($data_atual) and $data_pgto != "" and $dat
 	$usuario_pgto = '';
 }
 
+$referencia = 'Conta';
+if($funcionario != ""){
+	$referencia = 'Pagamento';
+}
+
 
 if($id == ""){
-	$query = $pdo->prepare("INSERT INTO $tabela SET descricao = :descricao, funcionario = '$funcionario', valor = :valor, data_venc = '$data_venc', data_pgto = '$data_pag', frequencia = '$frequencia', saida = '$saida', data_lanc = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$usuario_pgto', arquivo = '$foto', pago = '$pago', referencia = 'Conta', obs = :obs ");
+	$query = $pdo->prepare("INSERT INTO $tabela SET descricao = :descricao, funcionario = '$funcionario', valor = :valor, data_venc = '$data_venc', data_pgto = '$data_pag', frequencia = '$frequencia', saida = '$saida', data_lanc = curDate(), usuario_lanc = '$id_usuario', usuario_pgto = '$usuario_pgto', arquivo = '$foto', pago = '$pago', referencia = '$referencia', obs = :obs ");
 
 }else{
 	$query = $pdo->prepare("UPDATE $tabela SET descricao = :descricao, funcionario = '$funcionario', valor = :valor, data_venc = '$data_venc', frequencia = '$frequencia', saida = '$saida', data_lanc = curDate(), usuario_lanc = '$id_usuario', arquivo = '$foto', obs = :obs where id = '$id'");

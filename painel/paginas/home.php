@@ -3,8 +3,61 @@
 		echo "<script> window.location='../index.php' </script>";
 		exit();
 	}
+	// totalizar pacientes 
 
-?>
+	$query = $pdo ->query("SELECT * FROM pacientes");
+	$res = $query->fetchall(PDO::FETCH_ASSOC);
+	$total_pacientes = @count($res);
+
+	// totalizar contar receber 
+
+	$total_receber_hoje = 0;
+	$query2 = $pdo ->query("SELECT * FROM receber where data_venc = curDate() and pago != 'Sim'");
+	$res2 = $query2->fetchall(PDO::FETCH_ASSOC);
+	$receber_hoje = @count($res2);
+
+	if($receber_hoje > 0){
+			for($i = 0 ; $i < $receber_hoje; $i++){
+			$total_receber_hoje += $res2[$i]['valor'];
+			$total_receber_hojeF = number_format($total_receber_hoje, 2, ',', '.');
+		}
+	}
+	// totalizar contar pagar 
+	$total_pagar_hoje = 0;
+	$query3 = $pdo ->query("SELECT * FROM pagar where data_venc = curDate() and pago != 'Sim'");
+	$res3 = $query3->fetchall(PDO::FETCH_ASSOC);
+	$pagar_hoje = @count($res3);
+
+	if($pagar_hoje > 0){
+		for($i = 0; $i < $pagar_hoje; $i++){
+			$total_pagar_hoje += $res3[$i]['valor'];
+			$total_pagar_hojeF = number_format($total_pagar_hoje, 2, ',', '.');
+		}
+	}
+
+
+	// $total_vencidas_hoje = 0;
+	// $query4 = $pdo ->query("SELECT * FROM pagar where data_venc < curDate() and pago != 'Sim'");
+	// $res4 = $query4->fetchall(PDO::FETCH_ASSOC);
+	// $vencidas_hoje = @count($res4);
+
+	// if($vencidas_hoje > 0){
+	// 	for($i = 0; $i < $vencidas_hoje; $i++){
+	// 		$total_vencidas_hoje += $res4[$i]['valor'];
+	// 		$total_vencidas_hojeF = number_format($total_vencidas_hoje, 2, ',', '.');
+	// 	}
+	// }
+
+	?>
+
+<?php if($ativo_sistema != 'Sim' and $ativo_sistema != ''){ ?>
+<div style="background: #ffc341; color:#3e3e3e; padding:10px; font-size:14px; margin-bottom:10px">
+	<div><i class="fa fa-info-circle"></i> <b>Aviso: </b> Prezado Cliente, não identificamos o pagamento de sua última mensalidade, entre em contato conosco o mais rápido possivel para regularizar o pagamento, caso contário seu acesso ao sistema será desativado.</div>
+</div>
+
+<?php } ?>
+
+
 
 
 
@@ -16,49 +69,55 @@
 	</div>
 	<?php } ?>
 
-	<div class="col_3">
-		<div class="col-md-3 widget widget1">
-			<div class="r3_counter_box">
-				<i class="pull-left fa fa-dollar icon-rounded"></i>
-				<div class="stats">
-					<h5><strong>$452</strong></h5>
-					<span>Total Revenue</span>
+	<a href="pacientes">
+		<div class="col_3">
+			<div class="col-md-3 widget widget1">
+				<div class="r3_counter_box">
+					<i class="pull-left fa fa-users icon-rounded"></i>
+					<div class="stats">
+						<h5><strong><?php echo $total_pacientes ?></strong></h5>
+						<span>Total Pacientes</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-3 widget widget1">
-			<div class="r3_counter_box">
-				<i class="pull-left fa fa-laptop user1 icon-rounded"></i>
-				<div class="stats">
-					<h5><strong>$1019</strong></h5>
-					<span>Online Revenue</span>
+	</a>
+		<a href="receber">
+			<div class="col-md-3 widget widget1">
+				<div class="r3_counter_box">
+					<i class="pull-left fa fa-money user1 icon-rounded"></i>
+					<div class="stats">
+						<h5><strong>R$ <?php echo $total_receber_hojeF ?></strong></h5>
+						<span>Total receber hoje: <?php echo $receber_hoje  ?></span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-3 widget widget1">
-			<div class="r3_counter_box">
-				<i class="pull-left fa fa-money user2 icon-rounded"></i>
-				<div class="stats">
-					<h5><strong>$1012</strong></h5>
-					<span>Expenses</span>
+		</a>
+		<a href="pagar">
+			<div class="col-md-3 widget widget1">
+				<div class="r3_counter_box">
+					<i class="pull-left fa fa-money user2 icon-rounded"></i>
+					<div class="stats">
+						<h5><strong>R$ <?php echo $total_pagar_hojeF ?></strong></h5>
+						<span>Total pagar hoje: <?php echo $pagar_hoje  ?></span>
+					</div>
 				</div>
 			</div>
-		</div>
+		</a>
 		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">
-				<i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
+				<i class="pull-left fa fa-clock dollar1 icon-rounded"></i>
 				<div class="stats">
-					<h5><strong>$450</strong></h5>
-					<span>Expenditure</span>
+					<h5><strong>25</strong></h5>
+					<span>Agendamentos Hoje</span>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-3 widget">
 			<div class="r3_counter_box">
-				<i class="pull-left fa fa-users dollar2 icon-rounded"></i>
+				<i class="pull-left fa fa-dollar dollar2 icon-rounded" style="background-color: red;"></i>
 				<div class="stats">
-					<h5><strong>1450</strong></h5>
-					<span>Total Users</span>
+					<h5><strong>20</strong></h5>
+					<span>Consultas Confirmadas</span>
 				</div>
 			</div>
 		</div>
@@ -80,17 +139,17 @@
 		<div class="col-md-4 stat">
 			<div class="content-top-1">
 				<div class="col-md-6 top-content">
-					<h5>Sales</h5>
-					<label>1283+</label>
+					<h5>Consultas Hoje</h5>
+					<label>10 / 26</label>
 				</div>
 				<div class="col-md-6 top-content1">	   
-					<div id="demo-pie-1" class="pie-title-center" data-percent="45"> <span class="pie-value"></span> </div>
+					<div id="demo-pie-1" class="pie-title-center" data-percent="50"> <span class="pie-value"></span> </div>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 			<div class="content-top-1">
 				<div class="col-md-6 top-content">
-					<h5>Reviews</h5>
+					<h5>Consulta Mes</h5>
 					<label>2262+</label>
 				</div>
 				<div class="col-md-6 top-content1">	   
