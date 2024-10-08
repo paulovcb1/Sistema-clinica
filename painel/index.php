@@ -275,48 +275,99 @@ if ($linhas > 0) {
 				<div class="profile_details_left"><!--notifications of menu start -->
 					<ul class="nofitications-dropdown">
 						<li class="dropdown head-dpdn">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">4</span></a>
+							<?php
+							$pagar_hoje = 0;
+							$query3 = $pdo->query("SELECT * FROM pagar where data_venc = curDate() and pago != 'Sim'");
+							$res3 = $query3->fetchall(PDO::FETCH_ASSOC);
+							$pagar_hoje = @count($res3);
+
+							if ($pagar_hoje > 0) {
+								$texto_pagar = 'Você possui ' . $pagar_hoje . ' contas para pagar hoje';
+							} else {
+								$texto_pagar = 'Nenhuma Conta para pagar hoje';
+							}
+
+							?>
+							<a href="#" class="dropdown-toggle <?php echo $receber ?>" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-money" style="color: #FFF;" ></i><span class="badge"><?php echo $pagar_hoje ?></span></a>
 							<ul class="dropdown-menu">
 								<li>
 									<div class="notification_header">
-										<h3>You have 3 new messages</h3>
+										<h3> <?php echo $texto_pagar ?></h3>
 									</div>
 								</li>
-								<li><a href="#">
-										<div class="user_img"><img src="images/1.jpg" alt=""></div>
+								<?php
+								$pagar_hoje = 0;
+								$query3 = $pdo->query("SELECT * FROM pagar where data_venc = curDate() and pago != 'Sim' order by id asc limit 8");
+								$res3 = $query3->fetchall(PDO::FETCH_ASSOC);
+								$pagar_hoje = @count($res3);
+								if ($pagar_hoje > 0) {
+									for ($i = 0; $i < $pagar_hoje; $i++){
+											
+								?>
+
+								<li><a href="pagar">
 										<div class="notification_desc">
-											<p>Lorem ipsum dolor amet</p>
-											<p><span>1 hour ago</span></p>
+											<?php echo $res3[$i]['descricao'] ?> - <span  style="color: red;" >R$
+											<?php echo $res3[$i]['valor'] ?></span>
 										</div>
 										<div class="clearfix"></div>
 									</a></li>
-								<li class="odd"><a href="#">
-										<div class="user_img"><img src="images/4.jpg" alt=""></div>
-										<div class="notification_desc">
-											<p>Lorem ipsum dolor amet </p>
-											<p><span>1 hour ago</span></p>
-										</div>
-										<div class="clearfix"></div>
-									</a></li>
-								<li><a href="#">
-										<div class="user_img"><img src="images/3.jpg" alt=""></div>
-										<div class="notification_desc">
-											<p>Lorem ipsum dolor amet </p>
-											<p><span>1 hour ago</span></p>
-										</div>
-										<div class="clearfix"></div>
-									</a></li>
-								<li><a href="#">
-										<div class="user_img"><img src="images/2.jpg" alt=""></div>
-										<div class="notification_desc">
-											<p>Lorem ipsum dolor amet </p>
-											<p><span>1 hour ago</span></p>
-										</div>
-										<div class="clearfix"></div>
-									</a></li>
+
+									<?php	} }?>
+											
 								<li>
 									<div class="notification_bottom">
-										<a href="#">See all messages</a>
+										<a href="pagar">Ver todas as contas</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+
+
+						<li class="dropdown head-dpdn">
+							<?php
+							$pagar_hoje = 0;
+							$query3 = $pdo->query("SELECT * FROM receber where data_venc = curDate() and pago != 'Sim'");
+							$res3 = $query3->fetchall(PDO::FETCH_ASSOC);
+							$pagar_hoje = @count($res3);
+
+							if ($pagar_hoje > 0) {
+								$texto_pagar = 'Você possui ' . $pagar_hoje . ' contas para receber hoje';
+							} else {
+								$texto_pagar = 'Nenhuma Conta para receber hoje';
+							}
+
+							?>
+							<a href="#" class="dropdown-toggle <?php echo $receber ?>" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-money" style="color: #FFF;" ></i><span class="badge" style="background: green;"><?php echo $pagar_hoje ?></span></a>
+							<ul class="dropdown-menu">
+								<li>
+									<div class="notification_header">
+										<h3> <?php echo $texto_pagar ?></h3>
+									</div>
+								</li>
+								<?php
+								$pagar_hoje = 0;
+								$query3 = $pdo->query("SELECT * FROM receber where data_venc = curDate() and pago != 'Sim' order by id asc limit 8");
+								$res3 = $query3->fetchall(PDO::FETCH_ASSOC);
+								$pagar_hoje = @count($res3);
+								if ($pagar_hoje > 0) {
+									for ($i = 0; $i < $pagar_hoje; $i++){
+											
+								?>
+
+								<li><a href="pagar">
+										<div class="notification_desc">
+											<?php echo $res3[$i]['descricao'] ?> - <span  style="color: green;" >R$
+											<?php echo $res3[$i]['valor'] ?></span>
+										</div>
+										<div class="clearfix"></div>
+									</a></li>
+
+									<?php	} }?>
+											
+								<li>
+									<div class="notification_bottom">
+										<a href="pagar">Ver todas as contas</a>
 									</div>
 								</li>
 							</ul>
@@ -588,64 +639,64 @@ if ($linhas > 0) {
 				</button>
 			</div>
 			<form method="POST" action="rel/financeiro_class.php" target="_blank">
-			<div class="modal-body">	
-			<div class="row">
-				<div class="col-md-4">
-					<label>Data Inicial</label>
-					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-4">
+							<label>Data Inicial</label>
+							<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
+						</div>
+
+						<div class="col-md-4">
+							<label>Data Final</label>
+							<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
+						</div>
+
+						<div class="col-md-4">
+							<label>Filtro Data</label>
+							<select name="filtro_data" class="form-control">
+								<option value="data_lanc">Data de Lançamento</option>
+								<option value="data_venc">Data de Vencimento</option>
+								<option value="data_pgto">Data de Pagamento</option>
+							</select>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-4">
+							<label>Entradas / Saídas</label>
+							<select name="filtro_tipo" class="form-control">
+								<option value="receber">Entradas / Ganhos</option>
+								<option value="pagar">Saídas / Despesas</option>
+							</select>
+						</div>
+
+						<div class="col-md-4">
+							<label>Tipo Lançamento</label>
+							<select name="filtro_lancamento" class="form-control">
+								<option value="">Tudo</option>
+								<option value="Conta">Ganhos / Despesas</option>
+								<option value="Pagamento">Pagamentos</option>
+								<option value="Procedimento">Procedimentos</option>
+								<option value="Comissão">Comissões</option>
+							</select>
+						</div>
+						<div class="col-md-4">
+							<label>Pendentes / Pago</label>
+							<select name="filtro_pendentes" class="form-control">
+								<option value="">Tudo</option>
+								<option value="Não">Pendentes</option>
+								<option value="Sim">Pago</option>
+							</select>
+						</div>
+					</div>
+
+
+
 				</div>
-
-				<div class="col-md-4">
-					<label>Data Final</label>
-					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Gerar</button>
 				</div>
-
-				<div class="col-md-4">
-					<label>Filtro Data</label>
-					<select name="filtro_data" class="form-control">
-						<option value="data_lanc">Data de Lançamento</option>
-						<option value="data_venc">Data de Vencimento</option>
-						<option value="data_pgto">Data de Pagamento</option>
-					</select>
-				</div>
-			</div>		
-
-
-			<div class="row">				
-				<div class="col-md-4">
-					<label>Entradas / Saídas</label>
-					<select name="filtro_tipo" class="form-control">
-						<option value="receber">Entradas / Ganhos</option>
-						<option value="pagar">Saídas / Despesas</option>
-					</select>
-				</div>
-
-				<div class="col-md-4">
-					<label>Tipo Lançamento</label>
-					<select name="filtro_lancamento" class="form-control">
-						<option value="">Tudo</option>
-						<option value="Conta">Ganhos / Despesas</option>
-						<option value="Pagamento">Pagamentos</option>
-						<option value="Procedimento">Procedimentos</option>
-						<option value="Comissão">Comissões</option>
-					</select>
-				</div>
-				<div class="col-md-4">
-					<label>Pendentes / Pago</label>
-					<select name="filtro_pendentes" class="form-control">
-						<option value="">Tudo</option>
-						<option value="Não">Pendentes</option>
-						<option value="Sim">Pago</option>
-					</select>
-				</div>			
-			</div>		
-				
-						
-
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Gerar</button>
-			</div>
 			</form>
 		</div>
 	</div>
@@ -662,28 +713,28 @@ if ($linhas > 0) {
 				</button>
 			</div>
 			<form method="POST" action="rel/lucro_class.php" target="_blank">
-			<div class="modal-body">	
-			<div class="row">
-				<div class="col-md-4">
-					<label>Data Inicial</label>
-					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-4">
+							<label>Data Inicial</label>
+							<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
+						</div>
+
+						<div class="col-md-4">
+							<label>Data Final</label>
+							<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
+						</div>
+
+
+					</div>
+
+
+
+
 				</div>
-
-				<div class="col-md-4">
-					<label>Data Final</label>
-					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Gerar</button>
 				</div>
-
-				
-			</div>		
-
-
-								
-
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Gerar</button>
-			</div>
 			</form>
 		</div>
 	</div>

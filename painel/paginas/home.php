@@ -3,6 +3,21 @@
 		echo "<script> window.location='../index.php' </script>";
 		exit();
 	}
+
+	// PEGAR DATA DO COMECO DO MES E FINAL 
+	$mes_atual = Date('m');
+	$ano_atual = Date('Y');
+	$data_inicio_mes = $ano_atual . "-" . $mes_atual . "-01";
+
+	if ($mes_atual == '4' || $mes_atual == '6' || $mes_atual == '9' || $mes_atual == '11') {
+		$dia_final_mes = '30';
+	} else if ($mes_atual == '2') {
+		$dia_final_mes = '28';
+	} else {
+		$dia_final_mes = '31';
+	}
+
+	$data_final_mes = $ano_atual . "-" . $mes_atual . "-" . $dia_final_mes;
 	// totalizar pacientes 
 
 	$query = $pdo ->query("SELECT * FROM pacientes");
@@ -35,19 +50,152 @@
 		}
 	}
 
+	
+	$total_vencidas_hoje = 0;
+	$query4 = $pdo ->query("SELECT * FROM pagar where data_venc < curDate() and pago != 'Sim'");
+	$res4 = $query4->fetchall(PDO::FETCH_ASSOC);
+	$vencidas_hoje = @count($res4);
 
-	// $total_vencidas_hoje = 0;
-	// $query4 = $pdo ->query("SELECT * FROM pagar where data_venc < curDate() and pago != 'Sim'");
-	// $res4 = $query4->fetchall(PDO::FETCH_ASSOC);
-	// $vencidas_hoje = @count($res4);
+	if($vencidas_hoje > 0){
+		for($i = 0; $i < $vencidas_hoje; $i++){
+			$total_vencidas_hoje += $res4[$i]['valor'];
+			$total_vencidas_hojeF = number_format($total_vencidas_hoje, 2, ',', '.');
+		}
+	}
 
-	// if($vencidas_hoje > 0){
-	// 	for($i = 0; $i < $vencidas_hoje; $i++){
-	// 		$total_vencidas_hoje += $res4[$i]['valor'];
-	// 		$total_vencidas_hojeF = number_format($total_vencidas_hoje, 2, ',', '.');
-	// 	}
-	// }
 
+		// totalizar contar pagar mes
+		$total_pagar_hoje = 0;
+		$query3 = $pdo ->query("SELECT * FROM pagar where data_venc >= '$data_inicio_mes' and data_venc <= '$data_final_mes'");
+		$res3 = $query3->fetchall(PDO::FETCH_ASSOC);
+		$total_pagar_mes = @count($res3);
+
+		// totalizar contar pagas mes
+		$total_pagar_hoje = 0;
+		$query3 = $pdo ->query("SELECT * FROM pagar where data_venc >= '$data_inicio_mes' and data_venc <= '$data_final_mes' and pago = 'Sim'");
+		$res3 = $query3->fetchall(PDO::FETCH_ASSOC);
+		$total_pagas_mes = @count($res3);
+
+
+		// porcentagem 
+
+		if($total_pagar_mes > 0 and $total_pagas_mes > 0){
+			$porcentagem_pagar = ($total_pagas_mes / $total_pagar_mes) * 100;
+		}else{
+			$porcentagem_pagar = 0;
+		}
+
+		// dados para o grafico de linhas 
+		
+//grafico de linhas
+$meses = 6;
+$data_inicio_apuracao = date('Y-m-d', strtotime("-$meses months",strtotime($data_inicio_mes)));
+$datas_apuracao = '';
+$nome_mes = '';
+$datas_apuracao_final = '';
+
+$total_receber_final = '';
+$total_pagar_final = '';
+for($cont=0; $cont<$meses; $cont++){
+
+	$datas_apuracao = date('Y-m-d', strtotime("+$cont months",strtotime($data_inicio_apuracao)));
+
+	$mes = date('m', strtotime($datas_apuracao));
+	$ano = date('Y', strtotime($datas_apuracao));
+
+	if($mes == '01'){
+		$nome_mes = 'Janeiro';
+	}
+
+	if($mes == '02'){
+		$nome_mes = 'Fevereiro';
+	}
+
+	if($mes == '03'){
+		$nome_mes = 'Março';
+	}
+
+	if($mes == '04'){
+		$nome_mes = 'Abril';
+	}
+
+	if($mes == '05'){
+		$nome_mes = 'Maio';
+	}
+
+	if($mes == '06'){
+		$nome_mes = 'Junho';
+	}
+
+	if($mes == '07'){
+		$nome_mes = 'Julho';
+	}
+
+	if($mes == '08'){
+		$nome_mes = 'Agosto';
+	}
+
+	if($mes == '09'){
+		$nome_mes = 'Setembro';
+	}
+
+	if($mes == '10'){
+		$nome_mes = 'Outubro';
+	}
+
+	if($mes == '11'){
+		$nome_mes = 'Novembro';
+	}
+
+	if($mes == '12'){
+		$nome_mes = 'Dezembro';
+	}
+
+	if($mes == '04' || $mes == '06' || $mes == '09' || $mes == '11'){
+		$data_final_mes = '30';
+	}else if($mes == '2'){
+		$data_final_mes = '28';
+	}else{
+		$data_final_mes = '31';
+	}
+	
+	$data_final_mes_completa = $ano.'-'.$mes.'-'.$data_final_mes;	
+	//percorrer os meses totalizando os valores
+
+$query = $pdo->query("SELECT * from receber where data_pgto >= '$datas_apuracao' and data_pgto<= '$data_final_mes_completa' and pago = 'Sim'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total = @count($res);
+$total_receber = 0;
+$total_receberF = 0;
+if($total > 0){
+	for($i=0; $i<$total; $i++){		
+		$valor = $res[$i]['valor'];
+		$total_receber += $valor;		
+	}
+}
+
+
+$query = $pdo->query("SELECT * from pagar where data_pgto >= '$datas_apuracao' and data_pgto<= '$data_final_mes_completa' and pago = 'Sim'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total = @count($res);
+$total_pagar = 0;
+$total_pagarF = 0;
+if($total > 0){
+	for($i=0; $i<$total; $i++){		
+		$valor = $res[$i]['valor'];
+		$total_pagar += $valor;		
+	}
+}
+
+	
+		$total_receber_final .= $total_receber.'*';		
+		$total_pagar_final .= $total_pagar.'*';
+		
+
+	$datas_apuracaoF = implode('/', array_reverse(explode('-', $datas_apuracao)));
+
+	$datas_apuracao_final .= $nome_mes.'*';
+}	
 	?>
 
 <?php if($ativo_sistema != 'Sim' and $ativo_sistema != ''){ ?>
@@ -86,7 +234,7 @@
 				<div class="r3_counter_box">
 					<i class="pull-left fa fa-money user1 icon-rounded"></i>
 					<div class="stats">
-						<h5><strong>R$ <?php echo $total_receber_hojeF ?></strong></h5>
+						<h5><strong>R$ <?php echo $total_receber_hoje ?></strong></h5>
 						<span>Total receber hoje: <?php echo $receber_hoje  ?></span>
 					</div>
 				</div>
@@ -97,7 +245,7 @@
 				<div class="r3_counter_box">
 					<i class="pull-left fa fa-money user2 icon-rounded"></i>
 					<div class="stats">
-						<h5><strong>R$ <?php echo $total_pagar_hojeF ?></strong></h5>
+						<h5><strong>R$ <?php echo $total_pagar_hoje ?></strong></h5>
 						<span>Total pagar hoje: <?php echo $pagar_hoje  ?></span>
 					</div>
 				</div>
@@ -128,7 +276,7 @@
 		<div class="col-md-8 content-top-2 card">
 			<div class="agileinfo-cdr">
 				<div class="card-header">
-					<h3>Weekly Sales</h3>
+					<h3>Consultas Hoje</h3>
 				</div>
 				
 				<div id="Linegraph" style="width: 98%; height: 350px">
@@ -149,7 +297,7 @@
 			</div>
 			<div class="content-top-1">
 				<div class="col-md-6 top-content">
-					<h5>Consulta Mes</h5>
+					<h5>Consulta mês</h5>
 					<label>2262+</label>
 				</div>
 				<div class="col-md-6 top-content1">	   
@@ -159,11 +307,11 @@
 			</div>
 			<div class="content-top-1">
 				<div class="col-md-6 top-content">
-					<h5>Visitors</h5>
-					<label>12589+</label>
+					<h5>Pagamento mês</h5>
+					<label><?php echo $total_pagas_mes ?> / <?php echo $total_pagar_mes ?></label>
 				</div>
 				<div class="col-md-6 top-content1">	   
-					<div id="demo-pie-3" class="pie-title-center" data-percent="90"> <span class="pie-value"></span> </div>
+					<div id="demo-pie-3" class="pie-title-center" data-percent="<?php echo $porcentagem_pagar ?>"> <span class="pie-value"></span> </div>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -183,259 +331,87 @@
 
 
 
+
 <!-- for index page weekly sales java script -->
 <script src="js/SimpleChart.js"></script>
 <script>
+
+	var meses = "<?=$datas_apuracao_final?>";
+	var dados = meses.split("*"); 
+
+	var receber = "<?=$total_receber_final?>";
+	var dados_receber = receber.split("*"); 
+
+	var pagar = "<?=$total_pagar_final?>";
+	var dados_pagar = pagar.split("*"); 
+
+		var maior_valor_linha_pagar = Math.max(...dados_pagar);
+    	var maior_valor_linha_receber = Math.max(...dados_receber);
+    	var maior_valor = Math.max(maior_valor_linha_pagar, maior_valor_linha_receber);
+    	maior_valor = parseFloat(maior_valor) + 200;
+    	
+    	var menor_valor_linha_pagar = Math.min(...dados_pagar);
+    	var menor_valor_linha_receber = Math.min(...dados_receber);
+    	var menor_valor = Math.min(menor_valor_linha_pagar, menor_valor_linha_receber);
+
 	var graphdata1 = {
-		linecolor: "#CCA300",
-		title: "Monday",
+		linecolor: "#c91508",
+		title: "Despesas",
 		values: [
-		{ X: "6:00", Y: 10.00 },
-		{ X: "7:00", Y: 20.00 },
-		{ X: "8:00", Y: 40.00 },
-		{ X: "9:00", Y: 34.00 },
-		{ X: "10:00", Y: 40.25 },
-		{ X: "11:00", Y: 28.56 },
-		{ X: "12:00", Y: 18.57 },
-		{ X: "13:00", Y: 34.00 },
-		{ X: "14:00", Y: 40.89 },
-		{ X: "15:00", Y: 12.57 },
-		{ X: "16:00", Y: 28.24 },
-		{ X: "17:00", Y: 18.00 },
-		{ X: "18:00", Y: 34.24 },
-		{ X: "19:00", Y: 40.58 },
-		{ X: "20:00", Y: 12.54 },
-		{ X: "21:00", Y: 28.00 },
-		{ X: "22:00", Y: 18.00 },
-		{ X: "23:00", Y: 34.89 },
-		{ X: "0:00", Y: 40.26 },
-		{ X: "1:00", Y: 28.89 },
-		{ X: "2:00", Y: 18.87 },
-		{ X: "3:00", Y: 34.00 },
-		{ X: "4:00", Y: 40.00 }
+		{ X: dados[0], Y: dados_pagar[0] },
+		{ X: dados[1], Y: dados_pagar[1] },
+		{ X: dados[2], Y: dados_pagar[2] },
+		{ X: dados[3], Y: dados_pagar[3] },
+		{ X: dados[4], Y: dados_pagar[4] },
+		{ X: dados[5], Y: dados_pagar[5] },
+		
 		]
 	};
 	var graphdata2 = {
 		linecolor: "#00CC66",
-		title: "Tuesday",
+		title: "Recebimentos",
 		values: [
-		{ X: "6:00", Y: 100.00 },
-		{ X: "7:00", Y: 120.00 },
-		{ X: "8:00", Y: 140.00 },
-		{ X: "9:00", Y: 134.00 },
-		{ X: "10:00", Y: 140.25 },
-		{ X: "11:00", Y: 128.56 },
-		{ X: "12:00", Y: 118.57 },
-		{ X: "13:00", Y: 134.00 },
-		{ X: "14:00", Y: 140.89 },
-		{ X: "15:00", Y: 112.57 },
-		{ X: "16:00", Y: 128.24 },
-		{ X: "17:00", Y: 118.00 },
-		{ X: "18:00", Y: 134.24 },
-		{ X: "19:00", Y: 140.58 },
-		{ X: "20:00", Y: 112.54 },
-		{ X: "21:00", Y: 128.00 },
-		{ X: "22:00", Y: 118.00 },
-		{ X: "23:00", Y: 134.89 },
-		{ X: "0:00", Y: 140.26 },
-		{ X: "1:00", Y: 128.89 },
-		{ X: "2:00", Y: 118.87 },
-		{ X: "3:00", Y: 134.00 },
-		{ X: "4:00", Y: 180.00 }
+		{ X: dados[0], Y: dados_receber[0] },
+		{ X: dados[1], Y: dados_receber[1] },
+		{ X: dados[2], Y: dados_receber[2] },
+		{ X: dados[3], Y: dados_receber[3] },
+		{ X: dados[4], Y: dados_receber[4] },
+		{ X: dados[5], Y: dados_receber[5] },
 		]
 	};
-	var graphdata3 = {
-		linecolor: "#FF99CC",
-		title: "Wednesday",
-		values: [
-		{ X: "6:00", Y: 230.00 },
-		{ X: "7:00", Y: 210.00 },
-		{ X: "8:00", Y: 214.00 },
-		{ X: "9:00", Y: 234.00 },
-		{ X: "10:00", Y: 247.25 },
-		{ X: "11:00", Y: 218.56 },
-		{ X: "12:00", Y: 268.57 },
-		{ X: "13:00", Y: 274.00 },
-		{ X: "14:00", Y: 280.89 },
-		{ X: "15:00", Y: 242.57 },
-		{ X: "16:00", Y: 298.24 },
-		{ X: "17:00", Y: 208.00 },
-		{ X: "18:00", Y: 214.24 },
-		{ X: "19:00", Y: 214.58 },
-		{ X: "20:00", Y: 211.54 },
-		{ X: "21:00", Y: 248.00 },
-		{ X: "22:00", Y: 258.00 },
-		{ X: "23:00", Y: 234.89 },
-		{ X: "0:00", Y: 210.26 },
-		{ X: "1:00", Y: 248.89 },
-		{ X: "2:00", Y: 238.87 },
-		{ X: "3:00", Y: 264.00 },
-		{ X: "4:00", Y: 270.00 }
-		]
-	};
-	var graphdata4 = {
-		linecolor: "Random",
-		title: "Thursday",
-		values: [
-		{ X: "6:00", Y: 300.00 },
-		{ X: "7:00", Y: 410.98 },
-		{ X: "8:00", Y: 310.00 },
-		{ X: "9:00", Y: 314.00 },
-		{ X: "10:00", Y: 310.25 },
-		{ X: "11:00", Y: 318.56 },
-		{ X: "12:00", Y: 318.57 },
-		{ X: "13:00", Y: 314.00 },
-		{ X: "14:00", Y: 310.89 },
-		{ X: "15:00", Y: 512.57 },
-		{ X: "16:00", Y: 318.24 },
-		{ X: "17:00", Y: 318.00 },
-		{ X: "18:00", Y: 314.24 },
-		{ X: "19:00", Y: 310.58 },
-		{ X: "20:00", Y: 312.54 },
-		{ X: "21:00", Y: 318.00 },
-		{ X: "22:00", Y: 318.00 },
-		{ X: "23:00", Y: 314.89 },
-		{ X: "0:00", Y: 310.26 },
-		{ X: "1:00", Y: 318.89 },
-		{ X: "2:00", Y: 518.87 },
-		{ X: "3:00", Y: 314.00 },
-		{ X: "4:00", Y: 310.00 }
-		]
-	};
-	var Piedata = {
-		linecolor: "Random",
-		title: "Profit",
-		values: [
-		{ X: "Monday", Y: 50.00 },
-		{ X: "Tuesday", Y: 110.98 },
-		{ X: "Wednesday", Y: 70.00 },
-		{ X: "Thursday", Y: 204.00 },
-		{ X: "Friday", Y: 80.25 },
-		{ X: "Saturday", Y: 38.56 },
-		{ X: "Sunday", Y: 98.57 }
-		]
-	};
-	$(function () {
-		$("#Bargraph").SimpleChart({
-			ChartType: "Bar",
-			toolwidth: "50",
-			toolheight: "25",
-			axiscolor: "#E6E6E6",
-			textcolor: "#6E6E6E",
-			showlegends: true,
-			data: [graphdata4, graphdata3, graphdata2, graphdata1],
-			legendsize: "140",
-			legendposition: 'bottom',
-			xaxislabel: 'Hours',
-			title: 'Weekly Profit',
-			yaxislabel: 'Profit in $'
-		});
-		$("#sltchartype").on('change', function () {
-			$("#Bargraph").SimpleChart('ChartType', $(this).val());
-			$("#Bargraph").SimpleChart('reload', 'true');
-		});
-		$("#Hybridgraph").SimpleChart({
-			ChartType: "Hybrid",
-			toolwidth: "50",
-			toolheight: "25",
-			axiscolor: "#E6E6E6",
-			textcolor: "#6E6E6E",
-			showlegends: true,
-			data: [graphdata4],
-			legendsize: "140",
-			legendposition: 'bottom',
-			xaxislabel: 'Hours',
-			title: 'Weekly Profit',
-			yaxislabel: 'Profit in $'
-		});
+
+	var dataRangeLinha = {
+    		linecolor: "transparent",
+    		title: "",
+    		values: [
+    		{ X: dados[0], Y: menor_valor },
+    		{ X: dados[1], Y: menor_valor },
+    		{ X: dados[2], Y: menor_valor },
+    		{ X: dados[3], Y: menor_valor },
+    		{ X: dados[4], Y: menor_valor },
+    		{ X: dados[5], Y: maior_valor },
+    		
+    		]
+    	};
+	
+		
 		$("#Linegraph").SimpleChart({
 			ChartType: "Line",
 			toolwidth: "50",
 			toolheight: "25",
 			axiscolor: "#E6E6E6",
 			textcolor: "#6E6E6E",
-			showlegends: false,
-			data: [graphdata4, graphdata3, graphdata2, graphdata1],
-			legendsize: "140",
-			legendposition: 'bottom',
-			xaxislabel: 'Hours',
-			title: 'Weekly Profit',
-			yaxislabel: 'Profit in $'
-		});
-		$("#Areagraph").SimpleChart({
-			ChartType: "Area",
-			toolwidth: "50",
-			toolheight: "25",
-			axiscolor: "#E6E6E6",
-			textcolor: "#6E6E6E",
 			showlegends: true,
-			data: [graphdata4, graphdata3, graphdata2, graphdata1],
-			legendsize: "140",
+			data: [graphdata2, graphdata1, dataRangeLinha],
+			legendsize: "40",
 			legendposition: 'bottom',
-			xaxislabel: 'Hours',
-			title: 'Weekly Profit',
-			yaxislabel: 'Profit in $'
+			xaxislabel: 'Meses',
+    		title: 'Últimos 6 Meses',
+    		yaxislabel: 'Total de Contas R$',
+    		responsive: true,
 		});
-		$("#Scatterredgraph").SimpleChart({
-			ChartType: "Scattered",
-			toolwidth: "50",
-			toolheight: "25",
-			axiscolor: "#E6E6E6",
-			textcolor: "#6E6E6E",
-			showlegends: true,
-			data: [graphdata4, graphdata3, graphdata2, graphdata1],
-			legendsize: "140",
-			legendposition: 'bottom',
-			xaxislabel: 'Hours',
-			title: 'Weekly Profit',
-			yaxislabel: 'Profit in $'
-		});
-		$("#Piegraph").SimpleChart({
-			ChartType: "Pie",
-			toolwidth: "50",
-			toolheight: "25",
-			axiscolor: "#E6E6E6",
-			textcolor: "#6E6E6E",
-			showlegends: true,
-			showpielables: true,
-			data: [Piedata],
-			legendsize: "250",
-			legendposition: 'right',
-			xaxislabel: 'Hours',
-			title: 'Weekly Profit',
-			yaxislabel: 'Profit in $'
-		});
-
-		$("#Stackedbargraph").SimpleChart({
-			ChartType: "Stacked",
-			toolwidth: "50",
-			toolheight: "25",
-			axiscolor: "#E6E6E6",
-			textcolor: "#6E6E6E",
-			showlegends: true,
-			data: [graphdata3, graphdata2, graphdata1],
-			legendsize: "140",
-			legendposition: 'bottom',
-			xaxislabel: 'Hours',
-			title: 'Weekly Profit',
-			yaxislabel: 'Profit in $'
-		});
-
-		$("#StackedHybridbargraph").SimpleChart({
-			ChartType: "StackedHybrid",
-			toolwidth: "50",
-			toolheight: "25",
-			axiscolor: "#E6E6E6",
-			textcolor: "#6E6E6E",
-			showlegends: true,
-			data: [graphdata3, graphdata2, graphdata1],
-			legendsize: "140",
-			legendposition: 'bottom',
-			xaxislabel: 'Hours',
-			title: 'Weekly Profit',
-			yaxislabel: 'Profit in $'
-		});
-	});
+	
 
 </script>
 <!-- //for index page weekly sales java script -->
+

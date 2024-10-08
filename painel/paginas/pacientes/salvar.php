@@ -9,19 +9,19 @@ $telefone = $_POST['telefone'];
 $data_nasc = $_POST['data_nasc'];
 $endereco = $_POST['endereco']; 
 $profissao = $_POST['profissao']; 
-$convenio = $_POST['convenio']; 
-$sexo = $_POST['sexo']; 
+$convenio = $_POST['convenio'];
+@$sexo = $_POST['sexo'];
 $obs = $_POST['obs']; 
 
 
 $id = $_POST['id']; 
 
 // validacao cpf
-$query = $pdo ->query("SELECT * FROM $tabela where cpf = '$cpf' ");
+$query = $pdo ->query("SELECT * FROM $tabela where telefone = '$telefone' ");
 $res = $query->fetchall(PDO::FETCH_ASSOC);
 $id_reg = @$res[0]['id'];
 if (@count ($res) > 0 and $id != $id_reg) {
-    echo "CPF: $cpf já foi Cadastrado";
+    echo "Telefone: $telefone já foi Cadastrado";
     exit();
 }
 

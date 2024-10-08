@@ -127,7 +127,7 @@ if (@$pacientes == 'ocultar') {
 
 						<div class="col-md-3">
 							<label>CPF: </label>
-							<input type="text" class="form-control" id="cpf" name="cpf" placeholder="Seu CPF" required>
+							<input type="text" class="form-control" id="cpf" name="cpf" placeholder="Seu CPF" >
 						</div>
 
 
@@ -138,7 +138,7 @@ if (@$pacientes == 'ocultar') {
 
 						<div class="col-md-3">
 							<label>Data de Nascimento</label>
-							<input type="date" class="form-control" id="data_nasc" name="data_nasc" required>
+							<input type="date" class="form-control" id="data_nasc" name="data_nasc" >
 						</div>
 
 					</div>
