@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/10/2024 às 21:19
+-- Tempo de geração: 24/10/2024 às 22:33
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -475,7 +475,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `senha_crip`, `nivel`, `ativo`, `telefone`, `endereco`, `data`, `foto`, `token`, `atendimento`, `pagamento`, `comissao`, `cpf`, `intervalo`) VALUES
 (6, 'Isos', 'paulovcb1@gmail.com', '123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Administrador', 'Sim', '(61) 99984-5086', 'Rua 4 Chácara 7, 00', '2024-07-30', 'sem-foto.jpg', '6d98a0772ad04a0e06797d2826d8c02f4a8b5117eba47eb39c27d255798d365c', 'Sim', 'pix cpf: 2394872398', 50, '049.071.951-17', 15),
 (14, 'marcela', 'marcela@gmail.com', '123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Dentista', 'Sim', '(12) 31231-2312', 'Rua 4 Chácara 7, 00', '2024-08-02', 'sem-foto.jpg', NULL, 'Sim', '049071961773', 0, '123.231.213-21', 0),
-(47, 'ana clara', 'anaclara@anaclara.com', '123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Atendente', 'Sim', '(00) 00000-0000', 'Rua 4 Chácara 7, 00', '2024-08-09', 'sem-foto.jpg', '', 'Não', 'pix cpf: 2394872398', 15, '232.424.234-23', 60);
+(47, 'ana clara', 'anaclara@anaclara.com', '123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Atendente', 'Sim', '(00) 00000-0000', 'Rua 4 Chácara 7, 00', '2024-08-09', 'sem-foto.jpg', '', 'Não', 'pix cpf: 2394872398', 15, '232.424.234-23', 60),
+(48, 'Paulo Victor de Campos Barbosa', 'spetaovitao@gmail.com', '123', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Administrador', 'Sim', '(61) 99845-0867', '', '2024-10-24', 'sem-foto.jpg', NULL, 'Não', '', 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -724,7 +725,7 @@ ALTER TABLE `receber`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios_permissoes`
